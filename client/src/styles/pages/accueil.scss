@@ -1,0 +1,156 @@
+@keyframes clignote {
+    0% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+div.topAccueil {
+    div.presentation {
+        position: relative;
+        top: 40vh;
+        h2 {
+            text-align: center;
+            font-size: 45px;
+            margin: 0;
+        }
+        h3 {
+            text-align: center;
+            font-size: 32px;
+            margin: 0;
+        }
+        ul {
+            a {
+                display: flex;
+                justify-content: center;
+                li {
+                    text-align: center;
+                    margin-top: 15px;
+                    font-size: 22px;
+                    padding: 5px;
+                    border: 2px solid;
+                    border-color: $white;
+                    border-radius: 20px;
+                }
+            }
+        }
+        a.arrow {
+            position: relative;
+            left: 49vw;
+            top: 15vh;
+            animation-duration: 3s;
+            animation-name: clignote;
+            animation-iteration-count: infinite;
+            transition: none;
+            :hover {
+                background-color: rgb(48, 201, 252);
+                transition: 500ms ease-in;
+            }
+            img {
+                transform: rotate(90deg);
+                border: 2px solid;
+                border-radius: 20px;
+                padding: 5px;
+            }
+        }
+    }
+}
+div.AproposArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+        width: 35vw;
+        margin: 0 25px;
+    }
+    div.Apropos {
+        margin: 0 45px;
+        color: black;
+        h4 {
+            font-size: 32px;
+        }
+        p {
+            margin-top: 15px;
+            font-size: 26px;
+        }
+    }
+}
+div.skills {
+    div.title {
+        background-color: rgb(33, 33, 33);
+        padding: 15px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        h5 {
+            font-size: 42px;
+            margin: auto;
+        }
+    }
+    div.filtres {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 50px 25px 20px 25px;
+        li {
+            margin-top: 50px;
+            list-style: none;
+            margin: 20px 10px;
+            :hover {
+                border: 3px solid rgb(48, 201, 252);
+                border-radius: 50px;
+                width: 75px;
+                background-color: rgb(48, 201, 252);
+            }
+            input[type="radio"].typeTech {
+                display: none;
+            }
+            label {
+                list-style: none;
+                padding: 10px;
+                border: 1px solid $color-1;
+                border-radius: 50px;
+                color: black;
+            }
+        }
+    }
+    div.list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0px 50px 0;
+        div.card {
+            margin: 15px;
+            img {
+                width: 105px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 920px) {
+    div.AproposArea {
+        flex-direction: row;
+    }
+    div.skills {
+        div.filtres {
+            font-size: 21px;
+        }
+        div.list {
+            margin: 20px 100px 50px 100px;
+            div.card {
+                img {
+                    width: 200px;
+                }
+            }
+        }
+    }
+}
