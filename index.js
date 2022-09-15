@@ -27,8 +27,9 @@ app.post("/send_mail", cors(), async (req, res) => {
   let { mail } = req.body;
   let { text } = req.body;
 
+  require("dotenv").config();
   const transport = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: MAIL_HOST,
     port: MAIL_PORT,
     secure: false,
     service: "gmail",
