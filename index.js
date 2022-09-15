@@ -28,13 +28,13 @@ app.post("/send_mail", cors(), async (req, res) => {
   let { text } = req.body;
 
   const transport = nodemailer.createTransport({
-    host: MAIL_HOST,
+    // host: MAIL_HOST,
     port: MAIL_PORT,
     secure: false,
     service: "gmail",
     auth: {
       user: MAIL_USER,
-      pass: MAIL_PASS,
+      pass: "hvrclivxmlctlfak",
     },
     tls: {
       rejectUnauthorized: false,
