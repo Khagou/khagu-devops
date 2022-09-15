@@ -41,12 +41,11 @@ app.post("/send_mail", cors(), async (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  try {
-    await transport.sendMail({
-      from: MAIL_FROM,
-      to: MAIL_HOST,
-      subject: "contact Khagu-dev",
-      html: `<div className="email" style="
+  await transport.sendMail({
+    from: MAIL_FROM,
+    to: MAIL_HOST,
+    subject: "contact Khagu-dev",
+    html: `<div className="email" style="
         border: 1px solid black;
         padding: 20px;
         font-family: sans-serif;
@@ -58,11 +57,7 @@ app.post("/send_mail", cors(), async (req, res) => {
         <p> ${mail}</p>
         <p> ${text}</p>
         </div>`,
-    });
-  } catch (e) {
-    console.log(e);
-    res.sendStatus(500);
-  }
+  });
 });
 
 app.listen(PORT, () => console.log(`Server started : ${PORT}`));
