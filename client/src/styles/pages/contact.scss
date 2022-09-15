@@ -42,6 +42,9 @@ div.FormContact {
 
 @media screen and (min-width: 920px) {
     div.FormContact {
+        div.sent {
+            margin: 50px 25%;
+        }
         form {
             margin: 25px 25%;
 
