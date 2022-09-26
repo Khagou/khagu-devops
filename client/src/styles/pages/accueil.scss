@@ -41,10 +41,13 @@ div.topAccueil {
                 list-style: none;
                 height: 30px;
                 cursor: pointer;
-                :hover {
-                    background-color: rgb(48, 201, 252);
-                    transition: 500ms ease-in;
-                }
+                animation-duration: 3s;
+                animation-name: clignote;
+                animation-iteration-count: infinite;
+            }
+            li:hover {
+                background-color: rgb(48, 201, 252);
+                transition: 500ms ease-in;
             }
         }
         a.arrow {
