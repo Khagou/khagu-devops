@@ -16,17 +16,17 @@ const Apropos = () => {
           En effet, je dispose actuellement d'une petite expérience en
           développement sur des technologies tels que le SCSS, PHP et MySQL que
           j'ai eux l'occasion d'étudier lors de ma formation et de mettre en
-          pratique lors de la réalisation complète d'un projet que j'ai réalisé
-          en autonomie pendant mon stage. Ou encore React, NodeJS et MongoDB que
-          j'apprends actuellement au cours du développement de mon portfolio que
-          vous visitez actuellement.
+          pratique lors de la réalisation d'un projet réalisé en complète en
+          autonomie lors mon stage de fin de formation. Ainsi que de bases en
+          React, NodeJS et MongoDB que j'apprends actuellement au cours du
+          développement de ce portfolio.
         </p>
         <p>
           En parallèle je travail sur mes compétences en déploiement et en
           administration, sur des outils comme Proxmox, Truenas et NextCloud que
-          j'ai mis en place sur mon serveur personnel pour stocker et partager
-          des données. Ainsi que sur Nginx et Docker que j'aimerais utiliser
-          pour déployer mon site sur ce même serveur.
+          j'ai mis en place sur mon serveur personnel pour du stockage et
+          partage de données. Ainsi que sur Nginx et Docker que j'aimerais
+          utiliser pour déployer mon site sur ce même serveur.
         </p>
       </div>
     </div>
