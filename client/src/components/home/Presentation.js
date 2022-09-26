@@ -21,7 +21,7 @@ const Presentation = () => {
       <h3>Développeur web junior</h3>
       <ul>
         <li className="cv" onClick={onButtonClick}>
-          <p>CV</p>
+          <p>voir mon CV</p>
         </li>
       </ul>
       <a href="#Apropos" className="arrow">
