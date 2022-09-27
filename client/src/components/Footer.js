@@ -39,6 +39,21 @@ const Footer = () => {
                 </div>
               </a>
             </li>
+            <li>
+              <a
+                href="https://learn.unity.com/u/5fb84012edbc2a530d1912ec?tab=profile"
+                target={"_blank"}
+                rel="noopener noreferrer"
+              >
+                <div className="img">
+                  <img
+                    src="./images/unity.png"
+                    alt="https://learn.unity.com/u/5fb84012edbc2a530d1912ec?tab=profile"
+                    width={50}
+                  />
+                </div>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
