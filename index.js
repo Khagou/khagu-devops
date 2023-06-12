@@ -5,6 +5,7 @@ const app = express();
 require("./config/db");
 const techRoutes = require("./routes/techController");
 const imagesRoutes = require("./routes/imagesController");
+const articleRoutes = require("./routes/articlesController");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
@@ -20,6 +21,7 @@ app.use(express.static("client/build"));
 app.use(cors());
 app.use("/api/tech", techRoutes);
 app.use("/api/images", imagesRoutes);
+app.use("/api/article", articleRoutes);
 
 app.post("/send_mail", cors(), async (req, res) => {
   let { nom } = req.body;

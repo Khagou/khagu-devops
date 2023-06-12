@@ -1,33 +1,25 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const Apropos = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/article")
+      .then((res) => setData(res.data));
+  }, []);
   return (
     <div className="AproposArea">
       {/* Les images importe avec balises img sont accessible depuis public */}
       <img src="./images/isolated-g01e498436_1920.png" alt="devops-circle" />
       <div className="Apropos" id="Apropos">
         <h4>A propos de moi</h4>
-        <p>
-          Récemment diplomé d'un titre pro Développeur Web et Web Mobile obtenu
-          au prêt de M2I Formation, je recherche actuellement un emploi en tant
-          que développeur junior ou testeur.
-        </p>
-        <p>
-          En effet, je dispose actuellement d'une petite expérience en
-          développement sur des technologies tels que le SCSS, PHP et MySQL que
-          j'ai eux l'occasion d'étudier lors de ma formation et de mettre en
-          pratique lors de la réalisation d'un projet réalisé en complète en
-          autonomie lors mon stage de fin de formation. Ainsi que de bases en
-          React, NodeJS et MongoDB que j'apprends actuellement au cours du
-          développement de ce portfolio.
-        </p>
-        <p>
-          En parallèle je travail sur mes compétences en déploiement et en
-          administration, sur des outils comme Proxmox, Truenas et NextCloud que
-          j'ai mis en place sur mon serveur personnel pour du stockage et
-          partage de données. Ainsi que sur Nginx et Docker que j'aimerais
-          utiliser pour déployer mon site sur ce même serveur.
-        </p>
+        {data
+          .filter((article) => article.name.includes("about"))
+          .map((article) => (
+            <div className="About"> {article.contenu} </div>
+          ))}
       </div>
     </div>
   );
