@@ -13,15 +13,16 @@ const Skills = () => {
     "back-end",
     "front-end",
     "versionning",
-    "OS",
-    "virtualisation",
+    "CI/CD",
+    "infra as code",
+    "création vectorielle",
+    "conteneurisation",
+    "cloud",
   ];
 
   // Le useEffect ce joue lorsque le composant est monté
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/tech")
-      .then((res) => setData(res.data));
+    axios.get("/api/tech").then((res) => setData(res.data));
   }, []);
 
   return (
@@ -40,7 +41,12 @@ const Skills = () => {
               onChange={(e) => setSelectedRadio(e.target.id)}
             />
 
-            <label htmlFor={typeTech}>{typeTech}</label>
+            <label
+              htmlFor={typeTech}
+              className={selectedRadio === typeTech ? "checked" : ""}
+            >
+              {typeTech}
+            </label>
           </li>
         ))}
       </div>

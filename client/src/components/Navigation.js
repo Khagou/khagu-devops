@@ -51,7 +51,9 @@ const Navigation = () => {
     <div className="fixed" ref={navRef}>
       <div className="nav">
         <div className="logo">
-          <h1>khagu-dev</h1>
+          <NavLink to="/">
+            <h1>khagu-dev</h1>
+          </NavLink>
         </div>
         <nav>
           <input type="checkbox" id="checkbox_hamburger" />
