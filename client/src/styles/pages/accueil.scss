@@ -13,27 +13,33 @@
 div.topAccueil {
     div.presentation {
         position: relative;
+        z-index: 5;
         top: 35vh;
         h2 {
             text-align: center;
-            font-size: 45px;
+            font-size: 60px;
             margin: 0;
+            z-index: 5;
         }
         h3 {
             text-align: center;
             font-size: 32px;
             margin: 0;
+            z-index: 5;
         }
         ul {
             display: flex;
             justify-content: center;
+            margin-top: 100px;
+            padding: 0;
+            z-index: 5;
             li {
                 background-color: rgba(58, 58, 58, 0.485);
                 display: flex;
                 text-align: center;
                 justify-content: center;
                 align-items: center;
-                margin-top: 15px;
+                // margin-top: 15px;
                 font-size: 22px;
                 padding: 10px;
                 border: 2px solid;
@@ -54,13 +60,14 @@ div.topAccueil {
             }
         }
         a.arrow {
-            position: relative;
-            left: 49vw;
-            top: 15vh;
+            display: flex;
+            justify-content: center;
+            margin-top: 15vh;
             animation-duration: 3s;
             animation-name: clignote;
             animation-iteration-count: infinite;
-            // transition: none;
+            z-index: 5;
+
             :hover {
                 background-color: rgb(48, 201, 252);
                 transition: 500ms ease-in;
@@ -73,6 +80,7 @@ div.topAccueil {
                 border-radius: 20px;
                 padding: 5px;
                 background-color: #c4cdca;
+                z-index: 5;
             }
         }
     }
