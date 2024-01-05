@@ -71,12 +71,9 @@ div.topAccueil {
                     position: absolute;
                     z-index: 900;
                     margin: 0;
-                    // top: 50%;
                     width: 100vw;
                     height: 100vh;
                     padding: 0;
-                    // right: 5vw;
-                    // top: 10vw;
                     overflow: hidden;
                     transition: width 400ms ease-in-out;
                     background-color: rgb(46, 46, 46);
@@ -169,7 +166,7 @@ div.topAccueil {
 
 @media screen and (min-width: 1600px) {
     div.topAccueil {
-        width: 100vw;
+        // width: 100vw;
         div.fixed {
             position: fixed;
             min-height: 70px;
@@ -198,7 +195,7 @@ div.topAccueil {
                     }
                     ul {
                         display: flex;
-                        left: 80vw;
+                        left: 70vw;
                         top: -15px;
                         background-color: inherit;
                         a {
