@@ -5,9 +5,7 @@ const Apropos = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:7000/api/article")
-      .then((res) => setData(res.data));
+    axios.get("/api/article").then((res) => setData(res.data));
   }, []);
   return (
     <div className="AproposArea">
