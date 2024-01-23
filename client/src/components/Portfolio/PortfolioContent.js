@@ -7,7 +7,7 @@ const PortfolioContent = () => {
 
   useEffect(() => {
     axios
-      .get("104.198.17.225:7000/api/images")
+      .get("http://104.198.17.225:7000/api/images")
       .then((res) => setData(res.data));
   }, []);
 

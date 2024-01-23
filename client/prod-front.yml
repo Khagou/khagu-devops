@@ -17,9 +17,10 @@ spec:
     spec:
       containers:
         - name: khagu-dev-front
-          image: "khagu/khagu-dev-front:1" # Remplacer par votre repo
+          image: "khagu/khagu-dev-front:1.0.6" # Remplacer par votre repo
           ports:
             - containerPort: 80
+            - containerPort: 7000
 ---
 apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
@@ -55,3 +56,16 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: khagu-dev-front-to-back
+spec:
+  type: ClusterIP
+  selector:
+    app: khagu-dev-front
+  ports:
+  - protocol: TCP
+    port: 7000
+    targetPort: 7000

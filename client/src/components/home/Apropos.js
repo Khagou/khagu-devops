@@ -6,7 +6,7 @@ const Apropos = () => {
 
   useEffect(() => {
     axios
-      .get("104.198.17.225:7000/api/article")
+      .get("http://104.198.17.225:7000/api/article")
       .then((res) => setData(res.data));
   }, []);
   return (
