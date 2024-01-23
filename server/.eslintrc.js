@@ -1,9 +1,10 @@
 module.exports = {
   env: {
     browser: true,
+    node: true,
     es2021: true,
   },
-  extends: ["google", "plugin:react/recommended"],
+  extends: "eslint:recommended",
   overrides: [
     {
       env: {
@@ -15,21 +16,12 @@ module.exports = {
       },
     },
   ],
-  parser: "@babel/eslint-parser",
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
-    babelOptions: {
-      presets: ["@babel/preset-react"],
-    },
   },
-  plugins: ["react"],
-  ignorePatterns: ["**/build/**", ".eslintrc.js"],
+
   rules: {
-    "linebreak-style": [
-      "error",
-      process.platform === "win32" ? "windows" : "unix",
-    ],
     complexity: ["error", { max: 2 }],
   },
 };

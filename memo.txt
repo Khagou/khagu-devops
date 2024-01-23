@@ -1,0 +1,17 @@
+TESTS
+
+eslint:
+npm install eslint @babel/core @babel/eslint-parser --save-dev
+npm init @eslint/config (creation du fichier de config eslint ".eslintrc.js")
+npx eslint **/*.js -o ./eslint.txt --no-color
+
+
+CI
+Ecrire un pipeline qui fera les actions suivantes pour des applications Python:
+◦ Récupérer le code source dans un dépôt git
+◦ Lancer un linter qui vérifiera les normes de codage
+◦ Vérifier les copier-coller dans le code
+◦ Analyser la complexité cyclomatique
+◦ Lancer les tests unitaires de l’application
+◦ Builder l’image de Docker
+◦ Pusher l’image Docker sur le docker hub

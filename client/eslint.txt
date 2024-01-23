@@ -1,0 +1,193 @@
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\App.js
+  1:19  error  Strings must use singlequote  quotes
+  2:20  error  Strings must use singlequote  quotes
+  4:1   error  Missing JSDoc comment         require-jsdoc
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\Building.js
+  1:19  error  Strings must use singlequote  quotes
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\Footer.js
+   1:19  error  Strings must use singlequote  quotes
+  15:25  error  Strings must use singlequote  quotes
+  30:25  error  Strings must use singlequote  quotes
+  45:25  error  Strings must use singlequote  quotes
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\Navigation.js
+   1:16  error  There should be no space after '{'                          object-curly-spacing
+   1:44  error  There should be no space before '}'                         object-curly-spacing
+   1:52  error  Strings must use singlequote                                quotes
+   2:9   error  There should be no space after '{'                          object-curly-spacing
+   2:17  error  There should be no space before '}'                         object-curly-spacing
+   2:25  error  Strings must use singlequote                                quotes
+  10:11  error  Strings must use singlequote                                quotes
+  15:13  error  'alink' is never reassigned. Use 'const' instead            prefer-const
+  15:44  error  Strings must use singlequote                                quotes
+  17:24  error  Strings must use singlequote                                quotes
+  24:26  error  Arrow function has a complexity of 4. Maximum allowed is 2  complexity
+  29:38  error  Strings must use singlequote                                quotes
+  32:44  error  Strings must use singlequote                                quotes
+  35:28  error  Unexpected space before function parentheses                space-before-function-paren
+  36:44  error  Strings must use singlequote                                quotes
+  40:41  error  Strings must use singlequote                                quotes
+  45:29  error  Strings must use singlequote                                quotes
+  47:34  error  Strings must use singlequote                                quotes
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\Portfolio\Modal.js
+   1:19  error  Strings must use singlequote                    quotes
+   2:22  error  Strings must use singlequote                    quotes
+   4:17  error  There should be no space after '{'              object-curly-spacing
+   4:18  error  'open' is missing in props validation           react/prop-types
+   4:24  error  'children' is missing in props validation       react/prop-types
+   4:34  error  'onClose' is missing in props validation        react/prop-types
+   4:43  error  'image' is missing in props validation          react/prop-types
+   4:48  error  There should be no space before '}'             object-curly-spacing
+   8:1   error  Expected indentation of 6 spaces but found 4    indent
+   9:1   error  Expected indentation of 8 spaces but found 6    indent
+  10:1   error  Expected indentation of 8 spaces but found 6    indent
+  11:1   error  Expected indentation of 10 spaces but found 8   indent
+  12:1   error  Expected indentation of 12 spaces but found 10  indent
+  13:1   error  Expected indentation of 10 spaces but found 8   indent
+  14:1   error  Expected indentation of 10 spaces but found 8   indent
+  14:46  error  'image.chemin' is missing in props validation   react/prop-types
+  14:65  error  'image.name' is missing in props validation     react/prop-types
+  15:1   error  Expected indentation of 10 spaces but found 8   indent
+  16:1   error  Expected indentation of 8 spaces but found 6    indent
+  17:1   error  Expected indentation of 6 spaces but found 4    indent
+  18:1   error  Expected indentation of 6 spaces but found 4    indent
+  18:29  error  Strings must use singlequote                    quotes
+  18:38  error  Missing trailing comma                          comma-dangle
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\Portfolio\PortfolioContent.js
+   1:19  error  Strings must use singlequote                                     quotes
+   2:16  error  There should be no space after '{'                               object-curly-spacing
+   2:36  error  There should be no space before '}'                              object-curly-spacing
+   2:44  error  Strings must use singlequote                                     quotes
+   3:19  error  Strings must use singlequote                                     quotes
+  10:1   error  Expected indentation of 8 spaces but found 6                     indent
+  10:12  error  Strings must use singlequote                                     quotes
+  11:1   error  Expected indentation of 8 spaces but found 6                     indent
+  24:61  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\contact\ContactApp.js
+  1:44  error  Strings must use singlequote  quotes
+  3:30  error  Strings must use singlequote  quotes
+  5:15  error  Strings must use singlequote  quotes
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\contact\ContactForm.js
+   1:16  error  There should be no space after '{'   object-curly-spacing
+   1:25  error  There should be no space before '}'  object-curly-spacing
+   1:33  error  Strings must use singlequote         quotes
+   2:19  error  Strings must use singlequote         quotes
+   6:34  error  Strings must use singlequote         quotes
+   7:40  error  Strings must use singlequote         quotes
+   8:36  error  Strings must use singlequote         quotes
+   9:36  error  Strings must use singlequote         quotes
+  14:24  error  Strings must use singlequote         quotes
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\home\Apropos.js
+   1:19  error  Strings must use singlequote                    quotes
+   2:16  error  There should be no space after '{'              object-curly-spacing
+   2:36  error  There should be no space before '}'             object-curly-spacing
+   2:44  error  Strings must use singlequote                    quotes
+   9:1   error  Expected indentation of 8 spaces but found 6    indent
+   9:12  error  Strings must use singlequote                    quotes
+  10:1   error  Expected indentation of 8 spaces but found 6    indent
+  19:1   error  Expected indentation of 12 spaces but found 10  indent
+  19:54  error  Strings must use singlequote                    quotes
+  20:1   error  Expected indentation of 12 spaces but found 10  indent
+  21:1   error  Expected indentation of 14 spaces but found 12  indent
+  21:13  error  Missing "key" prop for element in iterator      react/jsx-key
+  22:1   error  Expected indentation of 12 spaces but found 10  indent
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\home\Card.js
+  1:19  error  Strings must use singlequote                    quotes
+  3:16  error  There should be no space after '{'              object-curly-spacing
+  3:17  error  'tech' is missing in props validation           react/prop-types
+  3:21  error  There should be no space before '}'             object-curly-spacing
+  6:34  error  'tech.image' is missing in props validation     react/prop-types
+  6:46  error  Strings must use singlequote                    quotes
+  6:61  error  'tech.techName' is missing in props validation  react/prop-types
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\home\Presentation.js
+   1:19  error  Strings must use singlequote                      quotes
+   6:11  error  Strings must use singlequote                      quotes
+  11:13  error  'alink' is never reassigned. Use 'const' instead  prefer-const
+  11:44  error  Strings must use singlequote                      quotes
+  13:24  error  Strings must use singlequote                      quotes
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\home\Skills.js
+   1:16  error  There should be no space after '{'              object-curly-spacing
+   1:36  error  There should be no space before '}'             object-curly-spacing
+   1:44  error  Strings must use singlequote                    quotes
+   2:19  error  Strings must use singlequote                    quotes
+   3:18  error  Strings must use singlequote                    quotes
+   4:8   error  Strings must use singlequote                    quotes
+  10:54  error  Strings must use singlequote                    quotes
+  12:5   error  Strings must use singlequote                    quotes
+  13:5   error  Strings must use singlequote                    quotes
+  14:5   error  Strings must use singlequote                    quotes
+  15:5   error  Strings must use singlequote                    quotes
+  16:5   error  Strings must use singlequote                    quotes
+  17:5   error  Strings must use singlequote                    quotes
+  18:5   error  Strings must use singlequote                    quotes
+  19:5   error  Strings must use singlequote                    quotes
+  20:5   error  Strings must use singlequote                    quotes
+  26:1   error  Expected indentation of 8 spaces but found 6    indent
+  26:12  error  Strings must use singlequote                    quotes
+  27:1   error  Expected indentation of 8 spaces but found 6    indent
+  48:55  error  Strings must use singlequote                    quotes
+  48:67  error  Strings must use singlequote                    quotes
+  57:1   error  Expected indentation of 12 spaces but found 10  indent
+  58:1   error  Expected indentation of 12 spaces but found 10  indent
+  59:1   error  Expected indentation of 14 spaces but found 12  indent
+  60:1   error  Expected indentation of 12 spaces but found 10  indent
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\components\routes\index.js
+  1:19  error  Strings must use singlequote         quotes
+  2:21  error  Strings must use singlequote         quotes
+  3:18  error  Strings must use singlequote         quotes
+  4:23  error  Strings must use singlequote         quotes
+  5:9   error  There should be no space after '{'   object-curly-spacing
+  5:38  error  There should be no space before '}'  object-curly-spacing
+  5:46  error  Strings must use singlequote         quotes
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\index.js
+   1:19  error  Strings must use singlequote                  quotes
+   2:22  error  Strings must use singlequote                  quotes
+   3:17  error  Strings must use singlequote                  quotes
+   4:8   error  Strings must use singlequote                  quotes
+   6:58  error  Strings must use singlequote                  quotes
+   8:1   error  Expected indentation of 4 spaces but found 2  indent
+   9:1   error  Expected indentation of 6 spaces but found 4  indent
+  10:1   error  Expected indentation of 4 spaces but found 2  indent
+  10:22  error  Missing trailing comma                        comma-dangle
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\pages\Contact.js
+  1:19  error  Strings must use singlequote  quotes
+  2:25  error  Strings must use singlequote  quotes
+  3:24  error  Strings must use singlequote  quotes
+  4:20  error  Strings must use singlequote  quotes
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\pages\Home.js
+   1:20  error  Strings must use singlequote             quotes
+   2:21  error  Strings must use singlequote             quotes
+   3:26  error  Strings must use singlequote             quotes
+   4:20  error  Strings must use singlequote             quotes
+   5:24  error  Strings must use singlequote             quotes
+   9:5   error  'React' must be in scope when using JSX  react/react-in-jsx-scope
+  10:7   error  'React' must be in scope when using JSX  react/react-in-jsx-scope
+  11:9   error  'React' must be in scope when using JSX  react/react-in-jsx-scope
+  13:9   error  'React' must be in scope when using JSX  react/react-in-jsx-scope
+  15:7   error  'React' must be in scope when using JSX  react/react-in-jsx-scope
+  16:7   error  'React' must be in scope when using JSX  react/react-in-jsx-scope
+  17:7   error  'React' must be in scope when using JSX  react/react-in-jsx-scope
+
+C:\Users\Khagu\Documents\cours\DevOps\projet\khagu-dev\client\src\pages\Portfolio.js
+  1:19  error  Strings must use singlequote  quotes
+  2:20  error  Strings must use singlequote  quotes
+  4:24  error  Strings must use singlequote  quotes
+  5:30  error  Strings must use singlequote  quotes
+
+✖ 156 problems (156 errors, 0 warnings)
+  136 errors and 0 warnings potentially fixable with the `--fix` option.

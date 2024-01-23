@@ -28,5 +28,8 @@
     "nodemon": "^2.0.19",
     "react-image-lightbox": "^5.1.4",
     "react-lightbox-gallery": "^2.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0"
   }
 }
