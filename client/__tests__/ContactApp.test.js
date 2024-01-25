@@ -1,18 +1,26 @@
 import React from "react";
-import render from "react-test-render";
+import {
+  render,
+  fireEvent,
+  waitFor,
+  getByTestId,
+} from "@testing-library/react";
 import axios from "axios";
-import ContactForm from "./ContactForm";
+import ContactForm from "../src/components/contact/ContactForm.js";
+import "@testing-library/jest-dom";
 
 jest.mock("axios");
 
 test("should send the form data and show success message", async () => {
   axios.post.mockResolvedValue({});
 
-  const { getByLabelText, getByText, getByRole } = render(<ContactForm />);
+  const { getByLabelText, getByText, getByRole, getByTestId } = render(
+    <ContactForm />
+  );
 
-  fireEvent.change(getByLabelText(/Nom/i), { target: { value: "Dupont" } });
-  fireEvent.change(getByLabelText(/Prénom/i), { target: { value: "Jean" } });
-  fireEvent.change(getByLabelText(/Email/i), {
+  fireEvent.change(getByTestId("nom-input"), { target: { value: "Dupont" } });
+  fireEvent.change(getByTestId("prenom-input"), { target: { value: "Jean" } });
+  fireEvent.change(getByTestId("email-input"), {
     target: { value: "jean.dupont@example.com" },
   });
   fireEvent.change(getByLabelText(/Message/i), {

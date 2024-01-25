@@ -1,3 +1,4 @@
+import React from "react";
 import Footer from "../components/Footer";
 import Apropos from "../components/home/Apropos";
 import Presentation from "../components/home/Presentation";

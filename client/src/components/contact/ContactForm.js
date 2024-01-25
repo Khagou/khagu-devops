@@ -27,37 +27,40 @@ const ContactForm = () => {
       <h4>Contact</h4>
       {!sent ? (
         <form className="form-contact" onSubmit={handleSend}>
-          <div className="nom">
+          <div className="divNom">
             <label htmlFor="nom">Nom</label>
             <input
               type="text"
               id="nom"
+              data-testid="nom-input"
               value={nom}
               onChange={(e) => setNom(e.target.value)}
               placeholder="Entrez votre nom"
             />
           </div>
-          <div className="prenom">
-            <label htmlFor="Prénom"> Prénom</label>
+          <div className="divPrenom">
+            <label htmlFor="prenom">Prénom</label>
             <input
               type="text"
               id="prenom"
+              data-testid="prenom-input"
               value={prenom}
               onChange={(e) => setPrenom(e.target.value)}
               placeholder="Entrez votre prénom"
             />
           </div>
-          <div className="email">
+          <div className="divEmail">
             <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
+              data-testid="email-input"
               value={mail}
               onChange={(e) => setMail(e.target.value)}
               placeholder="Entrez votre adresse email"
             />
           </div>
-          <div className="message">
+          <div className="divMessage">
             <label htmlFor="message">Message</label>
             <textarea
               id="message"

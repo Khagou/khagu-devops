@@ -31,6 +31,12 @@ module.exports = {
       "error",
       process.platform === "win32" ? "windows" : "unix",
     ],
-    complexity: ["error", { max: 2 }],
+    complexity: ["error", { max: 4 }],
+    quotes: ["error", "double"],
+    "require-jsdoc": 0,
+    indent: "off",
+    "object-curly-spacing": "off",
+    "react/prop-types": 0,
+    "comma-dangle": 0,
   },
 };

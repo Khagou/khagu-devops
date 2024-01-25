@@ -7,7 +7,7 @@ const PortfolioContent = () => {
 
   useEffect(() => {
     axios
-      .get("http://104.198.17.225:7000/api/images")
+      .get("http://localhost:7000/api/images")
       .then((res) => setData(res.data));
   }, []);
 
@@ -21,7 +21,7 @@ const PortfolioContent = () => {
 
   return (
     <div className="portfolio">
-      <h2>Site vitrine réalisé pour une entreprise de pose d'adhésif</h2>
+      <h2>Site vitrine réalisé pour une entreprise de pose d&apos;adhésif</h2>
       <div className="adpose">
         {data.map((images, index) => (
           <li key={index} className="image">

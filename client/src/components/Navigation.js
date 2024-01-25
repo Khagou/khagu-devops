@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, {useEffect, useRef, useState} from "react";
+import {NavLink} from "react-router-dom";
 
 const Navigation = () => {
   const [scrolled, setscrolled] = useState(false);
@@ -12,7 +12,7 @@ const Navigation = () => {
         // Creating new object of PDF file
         const fileURL = window.URL.createObjectURL(blob);
         // Setting various property values
-        let alink = document.createElement("a");
+        const alink = document.createElement("a");
         alink.href = fileURL;
         alink.target = "_blank";
         alink.click();
@@ -32,7 +32,7 @@ const Navigation = () => {
           navRef.current.style.transform = "translateY(-70px)";
         }
 
-        setTimeout(function () {
+        setTimeout(function() {
           navRef.current.style.transform = "translateY(0px)";
           setscrolled(true);
         }, 110);

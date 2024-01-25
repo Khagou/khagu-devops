@@ -6,7 +6,7 @@ const Apropos = () => {
 
   useEffect(() => {
     axios
-      .get("http://104.198.17.225:7000/api/article")
+      .get("http://localhost:7000/api/article")
       .then((res) => setData(res.data));
   }, []);
   return (
@@ -18,7 +18,9 @@ const Apropos = () => {
         {data
           .filter((article) => article.name.includes("about"))
           .map((article) => (
-            <div className="About"> {article.contenu} </div>
+            <div className="About" key={article.id}>
+              {article.contenu}
+            </div>
           ))}
       </div>
     </div>
