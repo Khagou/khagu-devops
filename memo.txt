@@ -1,9 +1,11 @@
 TESTS
-
 eslint:
-npm install eslint @babel/core @babel/eslint-parser --save-dev
+npm install eslint eslint-plugin-react @babel/core @babel/eslint-parser --save-dev
 npm init @eslint/config (creation du fichier de config eslint ".eslintrc.js")
 npx eslint **/*.js -o ./eslint.txt --no-color
+
+jest:
+npm install --save-dev jest babel-jest @babel/core @babel/preset-env
 
 
 CI
