@@ -9,7 +9,7 @@ const Modal = ({ open, children, onClose, image }) => {
       <div className="overlay" />
       <div className="modal">
         <button onClick={onClose}>
-          <p>&#10539;</p>
+          <p data-testid="closeButton">&#10539;</p>
         </button>
         <img className="modalImg" src={image.chemin} alt={image.name} />
         {children}

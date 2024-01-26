@@ -22,7 +22,7 @@ const PortfolioContent = () => {
   return (
     <div className="portfolio">
       <h2>Site vitrine réalisé pour une entreprise de pose d&apos;adhésif</h2>
-      <div className="adpose">
+      <div className="adpose" data-testid="portfolio">
         {data.map((images, index) => (
           <li key={index} className="image">
             <img
@@ -31,14 +31,13 @@ const PortfolioContent = () => {
               onClick={() => tempData(images)}
               // onChange={() => setPicture(images)}
             />
-
-            <Modal
-              open={isOpen}
-              onClose={() => setIsOpen(false)}
-              image={tempdata}
-            ></Modal>
           </li>
         ))}
+        <Modal
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+          image={tempdata}
+        ></Modal>
       </div>
     </div>
   );

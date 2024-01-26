@@ -18,7 +18,7 @@ const Apropos = () => {
         {data
           .filter((article) => article.name.includes("about"))
           .map((article) => (
-            <div className="About" key={article.id}>
+            <div className="About" key={article.id} data-testid="apropos">
               {article.contenu}
             </div>
           ))}

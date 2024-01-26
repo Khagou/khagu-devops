@@ -24,11 +24,12 @@ const Skills = () => {
   useEffect(() => {
     axios
       .get("http://localhost:7000/api/tech")
-      .then((res) => setData(res.data));
+      .then((res) => setData(res.data))
+      .catch((error) => console.error(error));
   }, []);
 
   return (
-    <div className="skills">
+    <div className="skills" data-testid="skills">
       <div className="title">
         <h5>Skills</h5>
       </div>

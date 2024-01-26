@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  render,
-  fireEvent,
-  waitFor,
-  getByTestId,
-} from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import axios from "axios";
 import ContactForm from "../src/components/contact/ContactForm.js";
 import "@testing-library/jest-dom";

@@ -7,8 +7,43 @@ const ContactForm = () => {
   const [prenom, setPrenom] = useState("");
   const [mail, setMail] = useState("");
   const [text, setText] = useState("");
+  const [lastSent, setLastSent] = useState("Date.now() - 60000");
+
+  const COOLDOWN_PERIOD = 60000;
+
+  const validateForm = () => {
+    const nameRegex = /^[a-zA-Z]+$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!nameRegex.test(nom) || !nameRegex.test(prenom)) {
+      alert("Veuillez entrer un nom et un prénom valide");
+      return false;
+    }
+
+    if (!emailRegex.test(mail)) {
+      alert("Veuillez entrer une adresse mail valide");
+      return false;
+    }
+    if (text.length < 10) {
+      alert("Veuillez entrer un message d'au moins 10 caractères");
+      return false;
+    }
+
+    return true;
+  };
 
   const handleSend = async () => {
+    if (!validateForm()) {
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastSent < COOLDOWN_PERIOD) {
+      alert("Veuillez attendre avant de renvoyer le formulaire.");
+      return;
+    }
+
+    setLastSent(now);
     setSent(true);
     try {
       await axios.post("/send_mail", {
