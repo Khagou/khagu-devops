@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const TechModel = mongoose.model(
-  "khagu-dev",
+const TechModel = new Schema(
   {
     techName: {
       type: String,
@@ -16,7 +16,7 @@ const TechModel = mongoose.model(
       required: true,
     },
   },
-  "tech"
+  { strictQuery: false }
 );
 
-module.exports = { TechModel };
+module.exports = mongoose.model("tech", TechModel, "tech");

@@ -3,23 +3,27 @@ const router = express.Router();
 
 const ImageModel = require("../models/imagesModel");
 
-router.get("/", (req, res) => {
-  ImageModel.find((err, docs) => {
-    if (!err) res.send(docs);
-    else console.log("error to get images" + err);
-  });
+router.get("/", async (req, res) => {
+  try {
+    const docs = await ImageModel.find();
+    res.send(docs);
+  } catch (err) {
+    console.log("error retriving data :" + err);
+  }
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const newImage = new ImageModel({
     name: req.body.name,
     caption: req.body.caption,
     chemin: req.body.chemin,
   });
-  newImage.save((err, docs) => {
-    if (!err) res.send(docs);
-    else console.log("error creating image :" + err);
-  });
+  try {
+    const docs = await newImage.save();
+    res.send(docs);
+  } catch (err) {
+    console.log("error inserting data :" + err);
+  }
 });
 
 module.exports = router;

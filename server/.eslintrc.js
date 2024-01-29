@@ -24,4 +24,5 @@ module.exports = {
   rules: {
     complexity: ["error", { max: 2 }],
   },
+  "eslint.workingdirectories": ["./back", "./front"],
 };

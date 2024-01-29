@@ -39,4 +39,5 @@ module.exports = {
     "react/prop-types": 0,
     "comma-dangle": 0,
   },
+  "eslint.workingdirectories": ["./back", "./front"],
 };

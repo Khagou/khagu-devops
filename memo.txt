@@ -4,6 +4,14 @@ npm install eslint eslint-plugin-react @babel/core @babel/eslint-parser --save-d
 npm init @eslint/config (creation du fichier de config eslint ".eslintrc.js")
 npx eslint **/*.js -o ./eslint.txt --no-color
 
+
+Eslint tips
+preciser le working directory pour eviter les erreurs:
+  "eslint.workingdirectories": [
+    "./back",
+    "./front"
+  ]
+
 jest:
 npm install --save-dev jest babel-jest @babel/core @babel/preset-env
 

@@ -1,14 +1,5 @@
 const { config } = require("dotenv");
 const mongoose = require("mongoose");
-// const MongoError = require("mongodb");
-
-function callback(err) {
-  if (err) {
-    console.log(err.message);
-  } else {
-    console.log("Succesfully Connected!");
-  }
-}
 
 mongoose
   .connect(
