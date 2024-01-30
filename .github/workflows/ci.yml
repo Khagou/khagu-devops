@@ -34,6 +34,7 @@ jobs:
 
       - name: create env file
         run: cd server && echo "DB_USER_PASS=$MONGO_USERNAME" >> .env
+          cat .env
 
       - name: Run back tests
         run: cd server && npm test
