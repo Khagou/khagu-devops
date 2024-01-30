@@ -33,7 +33,7 @@ jobs:
         run: echo $MONGO_USERNAME
 
       - name: create env file
-        run: cd server/config && echo DB_USER_PASS=${{ secrets.MONGO_USERNAME }} >> .env && cat .env
+        run: cd server/config && touch .env && echo DB_USER_PASS=${{ secrets.MONGO_USERNAME }} >> .env && cat .env
 
       - name: Run back tests
         run: cd server && npm test
