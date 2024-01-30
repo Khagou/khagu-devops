@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [test]
+  pull_request:
+    branches: [test]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build Docker images and push to Docker Hub
+        if: ${{ success() }}
+        run: |
+          docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          docker build -t your-docker-hub-username/your-frontend-image-name ./path-to-your-frontend
+          docker push your-docker-hub-username/your-frontend-image-name
+          docker build -t your-docker-hub-username/your-backend-image-name ./path-to-your-backend
+          docker push your-docker-hub-username/your-backend-image-name
