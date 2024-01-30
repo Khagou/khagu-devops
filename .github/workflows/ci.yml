@@ -23,7 +23,7 @@ jobs:
         run: cd client && npm ci
 
       - name: Run tests
-        run: npm test
+        run: cd client && npm test
 
       - name: Build Docker images and push to Docker Hub
         if: ${{ success() }}
