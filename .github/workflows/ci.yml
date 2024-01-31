@@ -38,7 +38,10 @@ jobs:
         run: cd server && npm test
 
       - name: run back server
-        run: cd server && npm run watch
+        run: |
+          cd server
+          npm run watch
+          sleep 5
 
       - name: Run front tests
         run: cd client && npm test
