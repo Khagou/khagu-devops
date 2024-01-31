@@ -8,7 +8,7 @@ on:
 env:
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
   DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-  DB_USER_PASS: ${{ secrets.MONGO_USERNAME }}
+  DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
 
 jobs:
   build-and-test:
