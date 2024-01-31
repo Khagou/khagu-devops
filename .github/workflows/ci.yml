@@ -24,27 +24,29 @@ jobs:
           node-version: 20
 
       - name: Install front dependencies
-        run: cd client && npm ci
+        run: |
+          cd client
+          npm ci
 
       - name: Install back dependencies
-        run: cd server && npm ci
-
-      # - name: create env file
-      #   run: |
-      #     cd ./server/config
-      #     echo DB_USER_PASS=$MONGO_USERNAME >> .env
+        run: |
+          cd server
+          npm ci
 
       - name: Run back tests
-        run: cd server && npm test
+        run: |
+          cd server
+          npm test
 
       - name: run back server
         run: |
           cd server
-          npm run watch
-          sleep 5
+          npm run watch &
 
       - name: Run front tests
-        run: cd client && npm test
+        run: |
+          cd client
+          npm test
 
       - name: Build Docker images and push to Docker Hub
         if: ${{ success() }}
