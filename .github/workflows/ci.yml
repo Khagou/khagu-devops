@@ -48,11 +48,17 @@ jobs:
           cd client
           npm test
 
-      - name: Build Docker images and push to Docker Hub
+      - name: Build front
         if: ${{ success() }}
         run: |
+          cd client
+          npm run build
+
+      - name: Build Docker images and push to Docker Hub
+        run: |
           docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          docker build -t khagu/khagu-dev-front ./client
-          docker push khagu/khagu-dev-front
-          docker build -t khagu/khagu-dev-back ./server
-          docker push khagu/khagu-dev-back
+          cd client
+          docker build ./client -t khagu/khagu-dev-front:latest
+          docker push khagu/khagu-dev-front:latest
+          docker build ./server -t khagu/khagu-dev-back:latest
+          docker push khagu/khagu-dev-back:latest
