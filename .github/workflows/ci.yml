@@ -8,7 +8,7 @@ on:
 env:
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
   DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-  MONGO_USERNAME: ${{ secrets.MONGO_USERNAME }}
+  DB_USER_PASS: ${{ secrets.MONGO_USERNAME }}
 
 jobs:
   build-and-test:
@@ -33,16 +33,18 @@ jobs:
         run: echo $MONGO_USERNAME
 
       - name: create env file
-        run: cd server/config && touch .env && echo DB_USER_PASS=$MONGO_USERNAME >> .env && cat .env
-
-      - name: Run back tests
-        run: cd server && npm test
+        run: |
+          cd ./server/config
+          echo DB_USER_PASS=$MONGO_USERNAME >> .env
 
       - name: run back server
         run: cd server && npm watch
 
       - name: Run front tests
         run: cd client && npm test
+
+      - name: Run back tests
+        run: cd server && npm test
 
       - name: Build Docker images and push to Docker Hub
         if: ${{ success() }}
