@@ -38,6 +38,6 @@ module.exports = {
     "object-curly-spacing": "off",
     "react/prop-types": 0,
     "comma-dangle": 0,
+    "eslint.workingdirectories": ["./back", "./front"],
   },
-  "eslint.workingdirectories": ["./back", "./front"],
 };
