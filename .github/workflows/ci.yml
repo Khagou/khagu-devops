@@ -54,6 +54,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
@@ -78,12 +79,12 @@ jobs:
 
       - name: Run back Eslint test
         run: |
-          npx eslint ./**/*.js -o ./eslint/back_Eslint.txt --no-color
+          npx eslint **/*.js -o ./eslint/back_Eslint.txt --no-color
         working-directory: server
 
       - name: Run front Eslint test
         run: |
-          npx eslint ./**/*.js -o ./eslint/front_Eslint.txt --no-color
+          npx eslint **/*.js -o ./eslint/front_Eslint.txt --no-color
         working-directory: client
 
   build-and-push:

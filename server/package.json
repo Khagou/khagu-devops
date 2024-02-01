@@ -13,7 +13,7 @@
     "test": "jest"
   },
   "eslintIgnore": [
-    "node_modules/"
+    "/home/runner/work/khagu-devops/khagu-devops/client/node_modules/"
   ],
   "engines": {
     "node": "14.x"
