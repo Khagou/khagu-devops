@@ -59,14 +59,21 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install front dependencies
-        run: |
-          npm ci
-        working-directory: client
+      # - name: Install front dependencies
+      #   run: |
+      #     npm ci
+      #   working-directory: client
 
       - name: Install back dependencies
         run: |
           npm ci
+        working-directory: server
+
+      - name: Where am i
+        run: pwd
+
+      - name: Where am i server
+        run: pwd
         working-directory: server
 
       - name: Run back Eslint test
