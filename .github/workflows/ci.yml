@@ -57,7 +57,6 @@ jobs:
       - name: Build Docker images and push to Docker Hub
         run: |
           docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          cd client
           docker build ./client -t khagu/khagu-dev-front:latest
           docker push khagu/khagu-dev-front:latest
           docker build ./server -t khagu/khagu-dev-back:latest
