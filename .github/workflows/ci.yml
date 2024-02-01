@@ -11,7 +11,7 @@ env:
   DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
 
 jobs:
-  build-and-test:
+  Jest-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +33,7 @@ jobs:
           cd server
           npm ci
 
-      - name: Run back tests
+      - name: Run back Jest tests
         run: |
           cd server
           npm test
@@ -43,10 +43,42 @@ jobs:
           cd server
           npm run watch &
 
-      - name: Run front tests
+      - name: Run front Jest tests
         run: |
           cd client
           npm test
+
+  Eslint-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Run back Eslint test
+        run: |
+          cd server
+          npx eslint **/*.js -o ./eslint/back_Eslint.txt --no-color
+
+      - name: Run front Eslint test
+        run: |
+          cd client
+          npx eslint **/*.js -o ./eslint/front_Eslint.txt --no-color
+
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
 
       - name: Build front
         if: ${{ success() }}
