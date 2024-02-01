@@ -1,1 +1,2 @@
-/home/runner/work/khagu-devops/khagu-devops/server/node_modules/ipaddr.js
+node_modules/
+node_modules/**/*
