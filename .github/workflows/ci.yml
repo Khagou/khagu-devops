@@ -61,13 +61,13 @@ jobs:
 
       - name: Install front dependencies
         run: |
-          cd client
           npm ci
+        working-directory: client
 
       - name: Install back dependencies
         run: |
-          cd server
           npm ci
+        working-directory: server
 
       - name: Run back Eslint test
         run: |
