@@ -71,13 +71,14 @@ jobs:
 
       - name: Run back Eslint test
         run: |
-          cd server
           npx eslint **/*.js -o ./eslint/back_Eslint.txt --no-color
+        working-directory: server
 
       - name: Run front Eslint test
         run: |
           cd client
           npx eslint **/*.js -o ./eslint/front_Eslint.txt --no-color
+        working-directory: client
 
   build-and-push:
     needs: [Jest-tests, Eslint-test]
