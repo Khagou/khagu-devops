@@ -10,7 +10,8 @@
     "install-client": "cd client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build",
     "build": "cd client && npm run build",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint \"**/*.js\" --format=unix > ./eslint/back_Eslint.txt --no-color"
   },
   "eslintIgnore": [
     "*/node_modules/**/*"
