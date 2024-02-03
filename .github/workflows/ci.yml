@@ -77,36 +77,36 @@ jobs:
         run: pwd
         working-directory: server
 
-      # - name: Run back Eslint test
-      #   run: |
-      #     npx eslint **/*.js -o ./eslint/back_Eslint.txt --no-color
-      #   working-directory: server
+      - name: Run back Eslint test
+        run: |
+          npx eslint . --format=unix > ./eslint/back_Eslint.txt --no-color
+        working-directory: server
 
-      # - name: Run front Eslint test
-      #   run: |
-      #     npx eslint **/*.js -o ./eslint/front_Eslint.txt --no-color
-      #   working-directory: client
+      - name: Run front Eslint test
+        run: |
+          npx eslint . --format=unix > ./eslint/front_Eslint.txt --no-color
+        working-directory: client
 
       # - name: Working directory
       #   uses: action@v2
       #   with:
       #     working-dir: server
 
-      - name: Run back Eslint test
-        uses: sibiraj-s/action-eslint@v3
-        with:
-          eslint-args: "--ignore-path=.gitignore --quiet --output-file=/home/runner/work/khagu-devops/khagu-devops/server/eslint/back_Eslint.txt"
-          extensions: "js,jsx,ts,tsx"
-          annotations: true
-          working-directory: server
+      # - name: Run back Eslint test
+      #   uses: sibiraj-s/action-eslint@v3
+      #   with:
+      #     eslint-args: "--ignore-path=.gitignore --quiet --output-file=/home/runner/work/khagu-devops/khagu-devops/server/eslint/back_Eslint.txt"
+      #     extensions: "js,jsx,ts,tsx"
+      #     annotations: true
+      #     working-directory: server
 
-      - name: Run front Eslint test
-        uses: sibiraj-s/action-eslint@v3
-        with:
-          eslint-args: "--ignore-path=.gitignore --quiet --output-file=/home/runner/work/khagu-devops/khagu-devops/client/eslint/front_Eslint.txt"
-          extensions: "js,jsx,ts,tsx"
-          annotations: true
-          working-directory: client
+      # - name: Run front Eslint test
+      #   uses: sibiraj-s/action-eslint@v3
+      #   with:
+      #     eslint-args: "--ignore-path=.gitignore --quiet --output-file=/home/runner/work/khagu-devops/khagu-devops/client/eslint/front_Eslint.txt"
+      #     extensions: "js,jsx,ts,tsx"
+      #     annotations: true
+      #     working-directory: client
 
       - name: check report
         run: |
@@ -118,14 +118,14 @@ jobs:
         with:
           name: eslint front report
           path: |
-            /client/eslint/front_Eslint.txt
+            client/eslint/front_Eslint.txt
 
       - name: back report
         uses: actions/upload-artifact@v3
         with:
           name: eslint back report
           path: |
-            /server/eslint/back_Eslint.txt
+            server/eslint/back_Eslint.txt
 
   build-and-push:
     needs: [Jest-tests, Eslint-test]
