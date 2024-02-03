@@ -79,12 +79,12 @@ jobs:
 
       - name: Run back Eslint test
         run: |
-          npx eslint . --format=unix > ./eslint/back_Eslint.txt
+          npx eslint **/*.js --format=unix > ./eslint/back_Eslint.txt --no-color
         working-directory: server
 
       - name: Run front Eslint test
         run: |
-          npx eslint . --format=unix > ./eslint/front_Eslint.txt
+          npx eslint **/*.js --format=unix > ./eslint/front_Eslint.txt --no-color
         working-directory: client
 
       # - name: Working directory
@@ -118,14 +118,14 @@ jobs:
         with:
           name: eslint front report
           path: |
-            client/eslint/front_Eslint.txt
+            /client/eslint/front_Eslint.txt
 
       - name: back report
         uses: actions/upload-artifact@v3
         with:
           name: eslint back report
           path: |
-            server/eslint/back_Eslint.txt
+            /server/eslint/back_Eslint.txt
 
   build-and-push:
     needs: [Jest-tests, Eslint-test]
