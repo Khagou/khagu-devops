@@ -95,7 +95,7 @@ jobs:
       - name: Run back Eslint test
         uses: sibiraj-s/action-eslint@v3
         with:
-          eslint-args: "--ignore-path=.gitignore --quiet -o /eslint/back_Eslint.txt"
+          eslint-args: "--ignore-path=.gitignore --quiet --output-file /eslint/back_Eslint.txt"
           extensions: "js,jsx,ts,tsx"
           annotations: true
           working-directory: server
@@ -103,7 +103,7 @@ jobs:
       - name: Run front Eslint test
         uses: sibiraj-s/action-eslint@v3
         with:
-          eslint-args: "--ignore-path=.gitignore --quiet -o /eslint/front_Eslint.txt"
+          eslint-args: "--ignore-path=.gitignore --quiet --output-file /eslint/front_Eslint.txt"
           extensions: "js,jsx,ts,tsx"
           annotations: true
           working-directory: client
