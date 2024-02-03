@@ -87,11 +87,13 @@ jobs:
       #     npx eslint **/*.js -o ./eslint/front_Eslint.txt --no-color
       #   working-directory: client
 
-      - uses: action@v2
+      - name: Working directory
+        uses: action@v2
         with:
           working-dir: server
 
-      - uses: sibiraj-s/action-eslint@v3
+      - name: Run back Eslint test
+        uses: sibiraj-s/action-eslint@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # optional
           eslint-args: "--ignore-path=.gitignore --quiet"
