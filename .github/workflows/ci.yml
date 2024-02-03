@@ -110,8 +110,8 @@ jobs:
 
       - name: check report
         run: |
-          cat ./client/eslint/front_Eslint.txt
-          cat ./server/eslint/back_Eslint.txt
+          cat client/eslint/front_Eslint.txt
+          cat server/eslint/back_Eslint.txt
 
       - name: front report
         uses: actions/upload-artifact@v3
