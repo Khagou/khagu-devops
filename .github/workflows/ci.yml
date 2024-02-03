@@ -87,10 +87,10 @@ jobs:
       #     npx eslint **/*.js -o ./eslint/front_Eslint.txt --no-color
       #   working-directory: client
 
-      - name: Working directory
-        uses: action@v2
-        with:
-          working-dir: server
+      # - name: Working directory
+      #   uses: action@v2
+      #   with:
+      #     working-dir: server
 
       - name: Run back Eslint test
         uses: sibiraj-s/action-eslint@v3
@@ -99,6 +99,7 @@ jobs:
           eslint-args: "--ignore-path=.gitignore --quiet"
           extensions: "js,jsx,ts,tsx"
           annotations: true
+          working-directory: server
 
   build-and-push:
     needs: [Jest-tests, Eslint-test]
