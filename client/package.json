@@ -20,7 +20,7 @@
     "test": "jest",
     "eject": "react-scripts eject",
     "build": "react-scripts build",
-    "lint": "./node_modules/.bin/eslint \"**/*.js\" --format=unix > ./eslint/front_Eslint.txt --no-color"
+    "lint": "./node_modules/.bin/eslint \"**/*.js\""
   },
   "engines": {
     "node": "14.x"
