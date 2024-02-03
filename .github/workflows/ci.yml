@@ -95,7 +95,6 @@ jobs:
       - name: Run back Eslint test
         uses: sibiraj-s/action-eslint@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} # optional
           eslint-args: "--ignore-path=.gitignore --quiet -o ./eslint/back_Eslint.txt"
           extensions: "js,jsx,ts,tsx"
           annotations: true
@@ -104,11 +103,15 @@ jobs:
       - name: Run front Eslint test
         uses: sibiraj-s/action-eslint@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} # optional
           eslint-args: "--ignore-path=.gitignore --quiet -o ./eslint/front_Eslint.txt"
           extensions: "js,jsx,ts,tsx"
           annotations: true
           working-directory: client
+
+      - name: check report
+        run: |
+          cat ./client/eslint/front_Eslint.txt
+          cat ./server/eslint/back_Eslint.txt
 
       - name: front report
         uses: actions/upload-artifact@v3
