@@ -77,15 +77,26 @@ jobs:
         run: pwd
         working-directory: server
 
-      - name: Run back Eslint test
-        run: |
-          npx eslint **/*.js -o ./eslint/back_Eslint.txt --no-color
-        working-directory: server
+      # - name: Run back Eslint test
+      #   run: |
+      #     npx eslint **/*.js -o ./eslint/back_Eslint.txt --no-color
+      #   working-directory: server
 
-      - name: Run front Eslint test
-        run: |
-          npx eslint **/*.js -o ./eslint/front_Eslint.txt --no-color
-        working-directory: client
+      # - name: Run front Eslint test
+      #   run: |
+      #     npx eslint **/*.js -o ./eslint/front_Eslint.txt --no-color
+      #   working-directory: client
+
+      - uses: action@v2
+        with:
+          working-dir: server
+
+      - uses: sibiraj-s/action-eslint@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # optional
+          eslint-args: "--ignore-path=.gitignore --quiet"
+          extensions: "js,jsx,ts,tsx"
+          annotations: true
 
   build-and-push:
     needs: [Jest-tests, Eslint-test]
