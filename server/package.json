@@ -11,7 +11,7 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "build": "cd client && npm run build",
     "test": "jest",
-    "lint": "./node_modules/.bin/eslint \"**/*.js\""
+    "lint": "eslint \"**/*.js\""
   },
   "eslintIgnore": [
     "*/node_modules/**/*"
