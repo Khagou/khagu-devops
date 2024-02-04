@@ -79,12 +79,12 @@ jobs:
 
       - name: Run back Eslint test
         run: |
-          npx eslint **/*.js --ignore-path .eslintignore --o ./eslint/back_eslint.txt --no-color
+          npx eslint --ignore-path .eslintignore --o ./eslint/back_eslint.txt --no-color **/*.js
         working-directory: server
 
       - name: Run front Eslint test
         run: |
-          npx eslint **/*.js --ignore-path .eslintignore --o ./eslint/back_eslint.txt --no-color
+          npx eslint --ignore-path .eslintignore --o ./eslint/back_eslint.txt --no-color **/*.js
         working-directory: client
 
       # - name: Working directory
