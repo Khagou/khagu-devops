@@ -79,12 +79,12 @@ jobs:
 
       - name: Run back Eslint test
         run: |
-          npx run lint  --format=unix > ./eslint/back_Eslint.txt --no-color
+          npx run lint --output-file eslint-report.txt --format unix > /dev/null
         working-directory: server
 
       - name: Run front Eslint test
         run: |
-          npm run lint  --format=unix > ./eslint/back_Eslint.txt --no-color
+          npm run lint --output-file eslint-report.txt --format unix > /dev/null
         working-directory: client
 
       # - name: Working directory
