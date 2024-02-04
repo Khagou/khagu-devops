@@ -78,13 +78,13 @@ jobs:
       - name: Where am i server
         run: |
           pwd
-          ls
+          ls -la
         working-directory: server
 
       - name: Where am i client
         run: |
           pwd
-          ls
+          ls -la
         working-directory: client
 
       - name: Create eslint directory if not exists
