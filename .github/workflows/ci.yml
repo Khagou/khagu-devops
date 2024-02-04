@@ -77,6 +77,14 @@ jobs:
         run: pwd
         working-directory: server
 
+      - name: Create eslint directory if not exists
+        run: mkdir -p eslint
+        working-directory: server
+
+      - name: Create eslint directory if not exists
+        run: mkdir -p eslint
+        working-directory: client
+
       - name: Run back Eslint test
         run: |
           npx eslint --ignore-path .eslintignore --o ./eslint/back_eslint.txt --no-color .
@@ -84,7 +92,7 @@ jobs:
 
       - name: Run front Eslint test
         run: |
-          npx eslint --ignore-path .eslintignore --o ./eslint/back_eslint.txt --no-color .
+          npx eslint --ignore-path .eslintignore --o ./eslint/front_eslint.txt --no-color .
         working-directory: client
 
       # - name: Working directory
