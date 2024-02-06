@@ -97,12 +97,12 @@ jobs:
 
       - name: Run back Eslint test
         run: |
-          npx eslint --ignore-pattern "node_modules/**" -c .eslintrc.js --o ./back_eslint.txt --no-color **/*.js
+          npx eslint --ignore-pattern "node_modules/ipaddr.js" -c .eslintrc.js --o ./back_eslint.txt --no-color **/*.js
         working-directory: server
 
       - name: Run front Eslint test
         run: |
-          npx eslint --ignore-pattern "node_modules/**" -c .eslintrc.js --o ./front_eslint.txt --no-color **/*.js
+          npx eslint --ignore-pattern "node_modules/ipaddr.js" -c .eslintrc.js --o ./front_eslint.txt --no-color **/*.js
         working-directory: client
 
       # - name: Working directory
