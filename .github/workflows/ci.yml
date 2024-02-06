@@ -36,7 +36,7 @@ jobs:
       - name: Run back Jest tests
         run: |
           cd server
-          npm test
+          npm test --outputFile=./rapport/back_jest_report.txt
 
       - name: run back server
         run: |
@@ -46,104 +46,118 @@ jobs:
       - name: Run front Jest tests
         run: |
           cd client
-          npm test
-
-  Eslint-test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 20
-
-      - name: Install front dependencies
-        run: |
-          npm ci
-        working-directory: client
-
-      - name: Install back dependencies
-        run: |
-          npm ci
-        working-directory: server
-
-      - name: Where am i
-        run: |
-          pwd
-          ls
-
-      - name: Where am i server
-        run: |
-          pwd
-          ls -la
-        working-directory: server
-
-      - name: Where am i client
-        run: |
-          pwd
-          ls -la
-        working-directory: client
-
-      - name: Create eslint directory if not exists
-        run: mkdir -p eslint
-        working-directory: server
-
-      - name: Create eslint directory if not exists
-        run: mkdir -p eslint
-        working-directory: client
-
-      - name: Run back Eslint test
-        run: |
-          npx eslint --ignore-pattern "node_modules/ipaddr.js" -c .eslintrc.js --o ./back_eslint.txt --no-color **/*.js
-        working-directory: server
-
-      - name: Run front Eslint test
-        run: |
-          npx eslint --ignore-pattern "node_modules/ipaddr.js" -c .eslintrc.js --o ./front_eslint.txt --no-color **/*.js
-        working-directory: client
-
-      # - name: Working directory
-      #   uses: action@v2
-      #   with:
-      #     working-dir: server
-
-      # - name: Run back Eslint test
-      #   uses: sibiraj-s/action-eslint@v3
-      #   with:
-      #     eslint-args: "--ignore-path=.gitignore --quiet --output-file=/home/runner/work/khagu-devops/khagu-devops/server/eslint/back_Eslint.txt"
-      #     extensions: "js,jsx,ts,tsx"
-      #     annotations: true
-      #     working-directory: server
-
-      # - name: Run front Eslint test
-      #   uses: sibiraj-s/action-eslint@v3
-      #   with:
-      #     eslint-args: "--ignore-path=.gitignore --quiet --output-file=/home/runner/work/khagu-devops/khagu-devops/client/eslint/front_Eslint.txt"
-      #     extensions: "js,jsx,ts,tsx"
-      #     annotations: true
-      #     working-directory: client
-
-      - name: check report
-        run: |
-          cat /home/runner/work/khagu-devops/khagu-devops/client/eslint/front_Eslint.txt
-          cat /home/runner/work/khagu-devops/khagu-devops/server/eslint/back_Eslint.txt
+          npm test --outputFile=./rapport/front_jest_report.txt
 
       - name: front report
         uses: actions/upload-artifact@v3
         with:
           name: eslint front report
           path: |
-            /client/eslint/front_Eslint.txt
+            ./client/rapport/front_jest_report.txt
 
       - name: back report
         uses: actions/upload-artifact@v3
         with:
           name: eslint back report
           path: |
-            /server/eslint/back_Eslint.txt
+            ./server/rapport/back_jest_report.txt
+
+  # Eslint-test:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+
+  #     - name: Use Node.js
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 20
+
+  #     - name: Install front dependencies
+  #       run: |
+  #         npm ci
+  #       working-directory: client
+
+  #     - name: Install back dependencies
+  #       run: |
+  #         npm ci
+  #       working-directory: server
+
+  #     - name: Where am i
+  #       run: |
+  #         pwd
+  #         ls
+
+  #     - name: Where am i server
+  #       run: |
+  #         pwd
+  #         ls -la
+  #       working-directory: server
+
+  #     - name: Where am i client
+  #       run: |
+  #         pwd
+  #         ls -la
+  #       working-directory: client
+
+  #     - name: Create eslint directory if not exists
+  #       run: mkdir -p eslint
+  #       working-directory: server
+
+  #     - name: Create eslint directory if not exists
+  #       run: mkdir -p eslint
+  #       working-directory: client
+
+  #     - name: Run back Eslint test
+  #       run: |
+  #         npx eslint --ignore-pattern "node_modules/ipaddr.js" -c .eslintrc.js --o ./back_eslint.txt --no-color **/*.js
+  #       working-directory: server
+
+  #     - name: Run front Eslint test
+  #       run: |
+  #         npx eslint --ignore-pattern "node_modules/ipaddr.js" -c .eslintrc.js --o ./front_eslint.txt --no-color **/*.js
+  #       working-directory: client
+
+  #     # - name: Working directory
+  #     #   uses: action@v2
+  #     #   with:
+  #     #     working-dir: server
+
+  #     # - name: Run back Eslint test
+  #     #   uses: sibiraj-s/action-eslint@v3
+  #     #   with:
+  #     #     eslint-args: "--ignore-path=.gitignore --quiet --output-file=/home/runner/work/khagu-devops/khagu-devops/server/eslint/back_Eslint.txt"
+  #     #     extensions: "js,jsx,ts,tsx"
+  #     #     annotations: true
+  #     #     working-directory: server
+
+  #     # - name: Run front Eslint test
+  #     #   uses: sibiraj-s/action-eslint@v3
+  #     #   with:
+  #     #     eslint-args: "--ignore-path=.gitignore --quiet --output-file=/home/runner/work/khagu-devops/khagu-devops/client/eslint/front_Eslint.txt"
+  #     #     extensions: "js,jsx,ts,tsx"
+  #     #     annotations: true
+  #     #     working-directory: client
+
+  #     - name: check report
+  #       run: |
+  #         cat /home/runner/work/khagu-devops/khagu-devops/client/eslint/front_Eslint.txt
+  #         cat /home/runner/work/khagu-devops/khagu-devops/server/eslint/back_Eslint.txt
+
+  #     - name: front report
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: eslint front report
+  #         path: |
+  #           /client/eslint/front_Eslint.txt
+
+  #     - name: back report
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: eslint back report
+  #         path: |
+  #           /server/eslint/back_Eslint.txt
 
   build-and-push:
     needs: [Jest-tests, Eslint-test]
