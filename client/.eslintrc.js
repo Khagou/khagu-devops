@@ -25,7 +25,7 @@ module.exports = {
     },
   },
   plugins: ["react"],
-  ignorePatterns: ["**/build/**", ".eslintrc.js"],
+  ignorePatterns: ["**/build/**", ".eslintrc.js", "node_modules/**"],
   rules: {
     "linebreak-style": [
       "error",
