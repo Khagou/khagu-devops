@@ -160,7 +160,7 @@ jobs:
   #           /server/eslint/back_Eslint.txt
 
   build-and-push:
-    needs: [Jest-tests, Eslint-test]
+    needs: [Jest-tests]
     runs-on: ubuntu-latest
 
     steps:
