@@ -33,10 +33,18 @@ jobs:
           cd server
           npm ci
 
+      - name: Create rapports directory if not exists
+        run: mkdir -p rapports
+        working-directory: server
+
+      - name: Create rapports directory if not exists
+        run: mkdir -p rapports
+        working-directory: client
+
       - name: Run back Jest tests
         run: |
           cd server
-          npm test --outputFile=./rapport/back_jest_report.txt
+          npm test
 
       - name: run back server
         run: |
@@ -46,21 +54,21 @@ jobs:
       - name: Run front Jest tests
         run: |
           cd client
-          npm test --outputFile=./rapport/front_jest_report.txt
+          npm test
 
       - name: front report
         uses: actions/upload-artifact@v3
         with:
-          name: eslint front report
+          name: jest front report
           path: |
-            ./client/rapport/front_jest_report.txt
+            ./test-report.txt
 
       - name: back report
         uses: actions/upload-artifact@v3
         with:
-          name: eslint back report
+          name: jest back report
           path: |
-            ./server/rapport/back_jest_report.txt
+            ./test-report.txt
 
   # Eslint-test:
   #   runs-on: ubuntu-latest
