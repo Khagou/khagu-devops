@@ -45,7 +45,7 @@ jobs:
         run: |
           cd server
           npm test
-          mv .\test-report.html .\back-jest-report.html
+          mv ./test-report.html ./back-jest-report.html
 
       - name: run back server
         run: |
@@ -56,7 +56,7 @@ jobs:
         run: |
           cd client
           npm test
-          mv .\test-report.html .\front-jest-report.html
+          mv ./test-report.html ./front-jest-report.html
 
       - name: Upload reports
         uses: actions/upload-artifact@v3
