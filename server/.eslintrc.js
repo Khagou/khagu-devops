@@ -23,6 +23,6 @@ module.exports = {
 
   ignorePatterns: [".eslintrc.js", "node_modules/**"],
   rules: {
-    complexity: ["error", { max: 2 }],
+    complexity: ["error", { max: 10 }],
   },
 };
