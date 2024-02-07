@@ -21,7 +21,7 @@ module.exports = {
     sourceType: "module",
   },
 
-  ignorePatterns: [".eslintrc.js", "node_modules/**"],
+  ignorePatterns: [".eslintrc.js", "node_modules/**/*", "node_modules/"],
   rules: {
     complexity: ["error", { max: 10 }],
   },
