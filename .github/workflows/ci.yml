@@ -123,11 +123,6 @@ jobs:
           npm run lint
         working-directory: client
 
-      # - name: Working directory
-      #   uses: action@v2
-      #   with:
-      #     working-dir: server
-
       # - name: Run back Eslint test
       #   uses: sibiraj-s/action-eslint@v3
       #   with:
@@ -164,7 +159,7 @@ jobs:
             eslint-report.html
 
   build-and-push:
-    needs: [Jest-tests]
+    needs: [Jest-tests, Eslint-test]
     runs-on: ubuntu-latest
 
     steps:
