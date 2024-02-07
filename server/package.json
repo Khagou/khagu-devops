@@ -11,7 +11,7 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "build": "cd client && npm run build",
     "test": "jest",
-    "lint": "eslint . -f html -o eslint-report.html"
+    "lint": "eslint . -f html -o eslint-report.html --max-warnings 10000"
   },
   "eslintIgnore": [
     "*/node_modules/**/*"
