@@ -147,12 +147,12 @@ jobs:
       - name: Install front dependencies
         run: |
           cd client
-          npm ci
+          npm install
 
       - name: Install back dependencies
         run: |
           cd server
-          npm ci
+          npm install
 
       - name: Build front
         if: ${{ success() }}
