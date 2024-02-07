@@ -45,6 +45,7 @@ jobs:
         run: |
           cd server
           npm test
+          mv .\test-report.html .\back-jest-report.html
 
       - name: run back server
         run: |
@@ -55,20 +56,21 @@ jobs:
         run: |
           cd client
           npm test
+          mv .\test-report.html .\front-jest-report.html
 
       - name: front report
         uses: actions/upload-artifact@v3
         with:
           name: jest front report
           path: |
-            ./client/test-report.html
+            ./client/front-jest-report.html
 
       - name: back report
         uses: actions/upload-artifact@v3
         with:
           name: jest back report
           path: |
-            ./server/test-report.html
+            ./server/back-jest-report.html
 
   Eslint-test:
     runs-on: ubuntu-latest
