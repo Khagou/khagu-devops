@@ -24,6 +24,12 @@ variable "cluster_name" {
   description = "The name of the GKE cluster."
 }
 
+variable "pool_name" {
+  type        = string
+  default     = "khagu-dev-pool" # Change me if you need
+  description = "The name of the node pool."
+  
+}
 
 ####### Variables Service Account #######
 variable "role_iam" {
