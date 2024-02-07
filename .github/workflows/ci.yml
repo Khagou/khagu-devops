@@ -149,14 +149,14 @@ jobs:
         with:
           name: eslint front report
           path: |
-            eslint-report.html
+            client/eslint-report.html
 
       - name: back report
         uses: actions/upload-artifact@v3
         with:
           name: eslint back report
           path: |
-            eslint-report.html
+            server/eslint-report.html
 
   build-and-push:
     needs: [Jest-tests, Eslint-test]
