@@ -6,7 +6,9 @@ const PortfolioContent = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get("34.38.73.48:7000/api/images").then((res) => setData(res.data));
+    axios
+      .get("http://34.38.73.48:7000/api/images")
+      .then((res) => setData(res.data));
   }, []);
 
   const [isOpen, setIsOpen] = useState(false);
