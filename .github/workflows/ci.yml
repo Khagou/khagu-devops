@@ -61,14 +61,14 @@ jobs:
         with:
           name: jest front report
           path: |
-            ./test-report.html
+            ./client/test-report.html
 
       - name: back report
         uses: actions/upload-artifact@v3
         with:
           name: jest back report
           path: |
-            ./test-report.html
+            ./server/test-report.html
 
   Eslint-test:
     runs-on: ubuntu-latest
@@ -119,15 +119,13 @@ jobs:
 
       - name: Run back Eslint test
         run: |
-          cd server
           npm run lint
-        # working-directory: server
+        working-directory: server
 
       - name: Run front Eslint test
         run: |
-          cd client
           npm run lint
-        # working-directory: client
+        working-directory: client
 
       # - name: Working directory
       #   uses: action@v2
