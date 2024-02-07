@@ -113,15 +113,15 @@ jobs:
         run: mkdir -p eslint
         working-directory: client
 
-      - name: Run back Eslint test
-        run: |
-          npm run lint
-        working-directory: server
-
       - name: Run front Eslint test
         run: |
           npm run lint
         working-directory: client
+
+      - name: Run back Eslint test
+        run: |
+          npm run lint
+        working-directory: server
 
       # - name: Run back Eslint test
       #   uses: sibiraj-s/action-eslint@v3
