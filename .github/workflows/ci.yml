@@ -58,18 +58,12 @@ jobs:
           npm test
           mv .\test-report.html .\front-jest-report.html
 
-      - name: front report
+      - name: Upload reports
         uses: actions/upload-artifact@v3
         with:
-          name: jest front report
+          name: jest reports
           path: |
             ./client/front-jest-report.html
-
-      - name: back report
-        uses: actions/upload-artifact@v3
-        with:
-          name: jest back report
-          path: |
             ./server/back-jest-report.html
 
   Eslint-test:
