@@ -5,6 +5,7 @@ on:
     branches: [test]
   pull_request:
     branches: [test]
+
 env:
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
   DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
@@ -126,7 +127,7 @@ jobs:
       - name: Eslint reports
         uses: actions/upload-artifact@v3
         with:
-          name: eslint front report
+          name: eslint reports
           path: |
             client/eslint-report.html
             server/eslint-report.html
@@ -162,7 +163,7 @@ jobs:
       - name: Build Docker images and push to Docker Hub
         run: |
           docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          docker build ./client -t khagu/khagu-dev-front:latest
-          docker push khagu/khagu-dev-front:latest
-          docker build ./server -t khagu/khagu-dev-back:latest
-          docker push khagu/khagu-dev-back:latest
+          docker build ./client -t ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+          docker build ./server -t ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
