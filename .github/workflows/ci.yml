@@ -139,10 +139,10 @@ jobs:
       #     annotations: true
       #     working-directory: client
 
-      - name: check report
-        run: |
-          cat /home/runner/work/khagu-devops/khagu-devops/client/eslint/front_Eslint.txt
-          cat /home/runner/work/khagu-devops/khagu-devops/server/eslint/back_Eslint.txt
+      # - name: check report
+      #   run: |
+      #     cat /home/runner/work/khagu-devops/khagu-devops/client/eslint/front_Eslint.txt
+      #     cat /home/runner/work/khagu-devops/khagu-devops/server/eslint/back_Eslint.txt
 
       - name: front report
         uses: actions/upload-artifact@v3
