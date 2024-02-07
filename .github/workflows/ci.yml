@@ -123,39 +123,12 @@ jobs:
           npm run lint || true
         working-directory: server
 
-      # - name: Run back Eslint test
-      #   uses: sibiraj-s/action-eslint@v3
-      #   with:
-      #     eslint-args: "--ignore-path=.gitignore --quiet --output-file=/home/runner/work/khagu-devops/khagu-devops/server/eslint/back_Eslint.txt"
-      #     extensions: "js,jsx,ts,tsx"
-      #     annotations: true
-      #     working-directory: server
-
-      # - name: Run front Eslint test
-      #   uses: sibiraj-s/action-eslint@v3
-      #   with:
-      #     eslint-args: "--ignore-path=.gitignore --quiet --output-file=/home/runner/work/khagu-devops/khagu-devops/client/eslint/front_Eslint.txt"
-      #     extensions: "js,jsx,ts,tsx"
-      #     annotations: true
-      #     working-directory: client
-
-      # - name: check report
-      #   run: |
-      #     cat /home/runner/work/khagu-devops/khagu-devops/client/eslint/front_Eslint.txt
-      #     cat /home/runner/work/khagu-devops/khagu-devops/server/eslint/back_Eslint.txt
-
-      - name: front report
+      - name: Eslint reports
         uses: actions/upload-artifact@v3
         with:
           name: eslint front report
           path: |
             client/eslint-report.html
-
-      - name: back report
-        uses: actions/upload-artifact@v3
-        with:
-          name: eslint back report
-          path: |
             server/eslint-report.html
 
   build-and-push:
