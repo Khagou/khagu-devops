@@ -119,13 +119,15 @@ jobs:
 
       - name: Run back Eslint test
         run: |
+          cd server
           npm run lint
-        working-directory: server
+        # working-directory: server
 
       - name: Run front Eslint test
         run: |
+          cd client
           npm run lint
-        working-directory: client
+        # working-directory: client
 
       # - name: Working directory
       #   uses: action@v2
