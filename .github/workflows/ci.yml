@@ -172,7 +172,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./client/
-          file: ./Dockerfile
+          file: ./client/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
 
@@ -180,7 +180,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./server/
-          file: ./Dockerfile
+          file: ./server/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
 
