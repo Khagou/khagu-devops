@@ -8,7 +8,7 @@ EXPOSE 7000
 
 RUN npm install -g npm-check-updates \
     ncu -u \
-    npm install
+    npm ci
 
 
 CMD [ "npm", "run", "start" ]
