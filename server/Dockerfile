@@ -6,9 +6,7 @@ COPY . .
 
 EXPOSE 7000
 
-RUN npm install -g npm-check-updates \
-    ncu -u \
-    npm ci
+RUN npm ci
 
 
 CMD [ "npm", "run", "start" ]
