@@ -8,5 +8,4 @@ EXPOSE 7000
 
 RUN npm ci
 
-
 CMD [ "npm", "run", "start" ]

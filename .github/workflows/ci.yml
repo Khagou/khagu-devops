@@ -168,6 +168,10 @@ jobs:
           cd client
           npm run build
 
+      - name: Create back .env
+        run: |
+          echo "DB_USER_PASS=${{ secrets.DB_USER_PASS }}" > server/config/.env
+
       - name: Build and push front
         uses: docker/build-push-action@v2
         with:
