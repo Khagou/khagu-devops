@@ -5,8 +5,9 @@ const Apropos = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    console.log(process.env.REACT_APP_URL_API);
     axios
-      .get("http://34.38.73.48:7000/api/article")
+      .get(process.env.REACT_APP_URL_API + "/article")
       .then((res) => setData(res.data));
   }, []);
   return (

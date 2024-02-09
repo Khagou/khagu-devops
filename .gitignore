@@ -11,6 +11,7 @@
 /client/front-jest-report.html
 /server/eslint-report.html
 /server/back-jest-report.html
+server/test-report.html
 /client/coverage
 
 # production

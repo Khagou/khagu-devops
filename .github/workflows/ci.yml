@@ -10,6 +10,7 @@ env:
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
   DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
+  REACT_APP_URL_API: ${{ vars.REACT_APP_LOCAL_URL_API }}
 
 jobs:
   Jest-tests:
@@ -168,9 +169,10 @@ jobs:
           cd client
           npm run build
 
-      - name: Create back .env
+      - name: Create .env files
         run: |
           echo "DB_USER_PASS=${{ secrets.DB_USER_PASS }}" > server/config/.env
+          echo "REACT_APP_URL_API=${{ vars.REACT_APP_URL_API }}" > client/.env
 
       - name: Build and push front
         uses: docker/build-push-action@v2
