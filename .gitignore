@@ -4,6 +4,7 @@
 /server/node_modules
 /server/config/.env
 /client/node_modules
+/client/.git
 
 
 # testing
