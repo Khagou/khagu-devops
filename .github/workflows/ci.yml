@@ -163,16 +163,25 @@ jobs:
           cd client
           npm install
 
-      - name: Build front
-        if: ${{ success() }}
-        env:
-          REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API }}
+      # - name: Build front
+      #   if: ${{ success() }}
+      #   env:
+      #     REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API }}
+      #   run: |
+      #     cd client
+      #     npm run build
+
+      - name: Create .env files
         run: |
-          cd client
-          npm run build
+          echo "DB_USER_PASS=${{ secrets.DB_USER_PASS }}" > ./server/config/.env
+          cat ./server/config/.env
+          echo "REACT_APP_URL_API=${{ secrets.REACT_APP_URL_API }}" > ./client/.env
+          cat ./client/.env
 
       - name: Build and push front
         uses: docker/build-push-action@v2
+        env:
+          REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API }}
         with:
           context: ./client/
           file: ./client/Dockerfile
@@ -181,6 +190,8 @@ jobs:
 
       - name: Build and push back
         uses: docker/build-push-action@v2
+        env:
+          DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
         with:
           context: ./server/
           file: ./server/Dockerfile
