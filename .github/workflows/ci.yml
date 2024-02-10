@@ -25,6 +25,11 @@ jobs:
         with:
           node-version: 20
 
+      - name: Create .env files
+        run: |
+          echo "REACT_APP_URL_API=${{ vars.REACT_APP_LOCAL_URL_API }}" > ./client/.env
+          cat ./client/.env
+
       - name: Install front dependencies
         run: |
           cd client
@@ -34,11 +39,6 @@ jobs:
         run: |
           cd server
           npm ci
-
-      - name: Create .env files
-        run: |
-          echo "REACT_APP_URL_API=${{ vars.REACT_APP_LOCAL_URL_API }}" > ./client/.env
-          cat ./client/.env
 
       - name: Create rapports directory if not exists
         run: mkdir -p rapports
