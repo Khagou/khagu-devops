@@ -38,6 +38,7 @@ jobs:
       - name: Create .env files
         run: |
           echo "REACT_APP_URL_API=${{ vars.REACT_APP_LOCAL_URL_API }}" > ./server/config/.env
+          cqt ./server/config/.env
 
       - name: Create rapports directory if not exists
         run: mkdir -p rapports
@@ -171,6 +172,8 @@ jobs:
         run: |
           echo "DB_USER_PASS=${{ secrets.DB_USER_PASS }}" > ./server/config/.env
           echo "REACT_APP_URL_API=${{ secrets.REACT_APP_URL_API }}" > ./client/.env
+          cat ./server/config/.env
+          cat ./client/.env
 
       - name: Build front
         if: ${{ success() }}
