@@ -37,8 +37,8 @@ jobs:
 
       - name: Create .env files
         run: |
-          echo "REACT_APP_URL_API=${{ vars.REACT_APP_LOCAL_URL_API }}" > ./server/config/.env
-          cat ./server/config/.env
+          echo "REACT_APP_URL_API=${{ vars.REACT_APP_LOCAL_URL_API }}" > ./client/.env
+          cat ./client/.env
 
       - name: Create rapports directory if not exists
         run: mkdir -p rapports
