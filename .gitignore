@@ -4,7 +4,7 @@
 /server/node_modules
 /server/config/.env
 /client/node_modules
-/client/.git
+/client/.gitignore
 /client/.env
 
 
