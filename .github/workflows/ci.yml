@@ -10,7 +10,7 @@ env:
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
   DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
-  # REACT_APP_URL_API: ${{ vars.REACT_APP_LOCAL_URL_API }}
+  REACT_APP_URL_API: ${{ vars.REACT_APP_LOCAL_URL_API }}
 
 jobs:
   Jest-tests:
@@ -24,11 +24,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 20
-
-      - name: Create .env files
-        run: |
-          echo "REACT_APP_URL_API=${{ vars.REACT_APP_LOCAL_URL_API }}" > ./client/.env
-          cat ./client/.env
 
       - name: Install front dependencies
         run: |
@@ -168,15 +163,10 @@ jobs:
           cd client
           npm install
 
-      - name: Create .env files
-        run: |
-          echo "DB_USER_PASS=${{ secrets.DB_USER_PASS }}" > ./server/config/.env
-          echo "REACT_APP_URL_API=${{ secrets.REACT_APP_URL_API }}" > ./client/.env
-          cat ./server/config/.env
-          cat ./client/.env
-
       - name: Build front
         if: ${{ success() }}
+        env:
+          REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API }}
         run: |
           cd client
           npm run build
