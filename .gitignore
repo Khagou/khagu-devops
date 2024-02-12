@@ -18,6 +18,10 @@ server/test-report.html
 # production
 /client/build
 
+# Cle ssh compte de service
+/terraform_sa.json
+/kubernetes_sa.json
+
 # misc
 .DS_Store
 .env.local

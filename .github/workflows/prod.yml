@@ -77,8 +77,64 @@ jobs:
           image: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
           exit-code: true
 
-  ##### Deploiement Terraform ######
+  ##### Push front image to GAR ######
+  ####################################
+  push-front-image-to-GAR:
+    needs: [check-front-image]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Google auth"
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
+
+      - name: "Build and push"
+        uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+        with:
+          registry: europe-west1-docker.pkg.dev
+          project_id: ${{ vars.GCP_PROJECT }}/docker-repo
+          image_name: ${{ vars.DOCKER_FRONT }}
+          image_tag: ${{ vars.DOCKER_FRONT_VERSION }}
+          dockerfile: ./client/Dockerfile
+          context: ./client
+
+  ##### Push back image to GAR ######
   ###################################
+  push-back-image-to-GAR:
+    needs: [check-back-image]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Google auth"
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
+
+      - name: "Build and push"
+        uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+        with:
+          registry: europe-west1-docker.pkg.dev
+          project_id: ${{ vars.GCP_PROJECT }}/docker-repo
+          image_name: ${{ vars.DOCKER_BACK }}
+          image_tag: ${{ vars.DOCKER_BACK_VERSION }}
+          dockerfile: ./server/Dockerfile
+          context: ./server
+
+  ##### Deploiement Terraform ######
+  ##################################
   deploy-terraform:
     runs-on: ubuntu-latest
     steps:
@@ -92,13 +148,93 @@ jobs:
         run: |
           cd terraform
           terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_CREDENTIALS }}
 
       - name: Terraform Plan
         run: |
           cd terraform
           terraform plan
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_CREDENTIALS }}
 
       - name: Terraform Apply
         run: |
           cd terraform
           terraform apply -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_CREDENTIALS }}
+
+  ##### Deploy front to GKE ######
+  ##########################
+  deploy-front-to-gke:
+    needs: [push-front-image-to-GAR]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: "Google auth"
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ vars.GCP_PROJECT }}
+          install_components: "gke-gcloud-auth-plugin"
+
+      - name: Configure gcloud
+        run: gcloud config set compute/region europe-west1
+
+      - name: Get GKE
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: deployment-cluster
+          location: europe-west1
+
+      - name: Deploy to GKE
+        run: |
+          gcloud builds submit --region=europe-west1 --project=$PROJECT_ID --config ./client/cloudbuild.yml --gcs-log-dir="gs://$BUCKET/cloudbuild-front-prod"
+        env:
+          PROJECT_ID: ${{ vars.GCP_PROJECT }}
+          BUCKET: ${{ vars.CLOUDBUILD_BUCKET }}
+
+  ##### Deploy back to GKE ######
+  ##########################
+  deploy-back-to-gke:
+    needs: [push-back-image-to-GAR]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: "Google auth"
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ vars.GCP_PROJECT }}
+          install_components: "gke-gcloud-auth-plugin"
+
+      - name: Configure gcloud
+        run: gcloud config set compute/region europe-west1
+
+      - name: Get GKE
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: deployment-cluster
+          location: europe-west1
+
+      - name: Deploy to GKE
+        run: |
+          gcloud builds submit --region=europe-west1 --project=$PROJECT_ID --config ./server/cloudbuild.yml --gcs-log-dir="gs://$BUCKET/cloudbuild-back-prod"
+        env:
+          PROJECT_ID: ${{ vars.GCP_PROJECT }}
+          BUCKET: ${{ vars.CLOUDBUILD_BUCKET }}
