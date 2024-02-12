@@ -1,70 +1,70 @@
-name: CI
+name: CI # Nom de l'action
 
-on:
-  push:
-    branches: [test]
-  pull_request:
-    branches: [test]
+on: # Déclencheur de l'action
+  push: # Déclencheur de l'action lors d'un push
+    branches: [test] # Déclencheur de l'action lors d'un push sur la branche test
+  pull_request: # Déclencheur de l'action lors d'une pull request
+    branches: [test] # Déclencheur de l'action lors d'une pull request sur la branche test
 
-env:
-  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+env: # Variables d'environnement declarées dans la vm de l'action
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }} # les secrets sont des variables d'environnement sous forme de secrets stockées dans le répertoire secrets du repo sur github
   DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
-  REACT_APP_URL_API: ${{ vars.REACT_APP_LOCAL_URL_API }}
+  REACT_APP_URL_API: ${{ vars.REACT_APP_LOCAL_URL_API }} # les vars sont des variables d'environnement stockées dans le répertoire vars du repo sur github
 
-jobs:
-  Jest-tests:
-    runs-on: ubuntu-latest
+jobs: # Jobs de l'action
+  Jest-tests: # Job de l'action pour les tests Jest
+    runs-on: ubuntu-latest # Système d'exploitation de la vm
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    steps: # Etapes du job
+      - name: Checkout code # Prendre le code du repot en contexte
+        uses: actions/checkout@v2 # use permet d'utiliser une action déjà existante (ici checkout@v2)
 
-      - name: Use Node.js
+      - name: Use Node.js # Installation de Node.js
         uses: actions/setup-node@v2
-        with:
+        with: # with permet de passer des paramètres à l'action
           node-version: 20
 
-      - name: Install front dependencies
-        run: |
+      - name: Install front dependencies # Installation des dépendances front
+        run: | # run permet d'exécuter des commandes dans la vm
           cd client
           npm ci
 
-      - name: Install back dependencies
+      - name: Install back dependencies # Installation des dépendances back
         run: |
           cd server
           npm ci
 
-      - name: Create rapports directory if not exists
+      - name: Create rapports directory if not exists # Creation du dossier rapports pour les tests front s'il n'existe pas
         run: mkdir -p rapports
-        working-directory: server
+        working-directory: server # working-directory permet de changer le répertoire de travail
 
-      - name: Create rapports directory if not exists
+      - name: Create rapports directory if not exists # Creation du dossier rapports pour les tests back s'il n'existe pas
         run: mkdir -p rapports
         working-directory: client
 
-      - name: Run back Jest tests
+      - name: Run back Jest tests # execution des tests Jest du backend
         run: |
           cd server
           npm test
           mv ./test-report.html ./back-jest-report.html
 
-      - name: run back server
+      - name: run back server # execution du serveur backend afin de pouvoir executer l'ensemble des tests du front
         run: |
           cd server
           npm run watch &
 
-      - name: Run front Jest tests
+      - name: Run front Jest tests # execution des tests Jest du frontend
         run: |
           cd client
           npm test
           mv ./test-report.html ./front-jest-report.html
 
-      - name: Upload reports
+      - name: Upload reports # Upload des rapports de tests (les tests tournant sur une vm, les rapports sont uploadés pour consultation car ils ne sont pas accessibles directement sur la vm)
         uses: actions/upload-artifact@v3
         with:
           name: jest reports
-          path: |
+          path: | # path permet de spécifier le chemin des fichiers à uploader
             ./client/front-jest-report.html
             ./server/back-jest-report.html
 
