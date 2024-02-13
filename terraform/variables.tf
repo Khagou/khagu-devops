@@ -6,7 +6,7 @@ variable "gcp_project" {
 }
 variable "gcp_zone" {
   type        = string
-  default     = "europe-west1-c" # Change me if you need
+  default     = "europe-west1-a" # Change me if you need
   description = "The GCP zone to deploy the app."
 }
 
