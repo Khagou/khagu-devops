@@ -213,6 +213,7 @@ jobs:
 
       - name: Deploy to GKE
         run: |
+          gcloud auth configure-docker europe-west1-docker.pkg.dev
           gcloud builds submit --region=europe-west1 --project=$PROJECT_ID --config ./client/cloudbuild.yml --gcs-log-dir="gs://$BUCKET/cloudbuild-front-prod"
         env:
           PROJECT_ID: ${{ secrets.GCP_PROJECT }}
@@ -250,6 +251,7 @@ jobs:
 
       - name: Deploy to GKE
         run: |
+          gcloud auth configure-docker europe-west1-docker.pkg.dev
           gcloud builds submit --region=europe-west1 --project=$PROJECT_ID --config ./server/cloudbuild.yml --gcs-log-dir="gs://$BUCKET/cloudbuild-back-prod"
         env:
           PROJECT_ID: ${{ secrets.GCP_PROJECT }}
