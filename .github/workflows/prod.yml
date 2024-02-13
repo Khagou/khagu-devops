@@ -184,7 +184,7 @@ jobs:
   ##### Deploy front to GKE ######
   ##########################
   deploy-front-to-gke:
-    needs: [push-front-image-to-GAR]
+    needs: [push-front-image-to-GAR, deploy-terraform]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -221,7 +221,7 @@ jobs:
   ##### Deploy back to GKE ######
   ##########################
   deploy-back-to-gke:
-    needs: [push-back-image-to-GAR]
+    needs: [push-back-image-to-GAR, deploy-terraform]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
