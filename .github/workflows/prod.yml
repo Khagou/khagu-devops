@@ -102,7 +102,7 @@ jobs:
         uses: RafikFarhad/push-to-gcr-github-action@v5-beta
         with:
           registry: europe-west1-docker.pkg.dev
-          project_id: ${{ vars.GCP_PROJECT }}/docker-repo
+          project_id: ${{ vars.GCP_PROJECT }}
           image_name: ${{ vars.DOCKER_FRONT }}
           image_tag: ${{ vars.DOCKER_FRONT_VERSION }}
           dockerfile: ./client/Dockerfile
@@ -130,7 +130,7 @@ jobs:
         uses: RafikFarhad/push-to-gcr-github-action@v5-beta
         with:
           registry: europe-west1-docker.pkg.dev
-          project_id: ${{ vars.GCP_PROJECT }}/docker-repo
+          project_id: ${{ vars.GCP_PROJECT }}
           image_name: ${{ vars.DOCKER_BACK }}
           image_tag: ${{ vars.DOCKER_BACK_VERSION }}
           dockerfile: ./server/Dockerfile
