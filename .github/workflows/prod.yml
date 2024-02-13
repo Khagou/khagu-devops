@@ -98,15 +98,24 @@ jobs:
         with:
           credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
 
-      - name: "Build and push"
-        uses: RafikFarhad/push-to-gcr-github-action@v5-beta
-        with:
-          registry: europe-west1-docker.pkg.dev
-          project_id: ${{ vars.GCP_PROJECT }}
-          image_name: ${{ vars.DOCKER_FRONT }}
-          image_tag: ${{ vars.DOCKER_FRONT_VERSION }}
-          dockerfile: ./client/Dockerfile
-          context: ./client
+      - name: "Pull image from Docker Hub"
+        run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+
+      - name: "Tag image"
+        run: docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }} europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+
+      - name: "Push image to GAR"
+        run: docker push europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+
+      # - name: "Build and push"
+      #   uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+      #   with:
+      #     registry: europe-west1-docker.pkg.dev
+      #     project_id: ${{ vars.GCP_PROJECT }}
+      #     image_name: ${{ vars.DOCKER_FRONT }}
+      #     image_tag: ${{ vars.DOCKER_FRONT_VERSION }}
+      #     dockerfile: ./client/Dockerfile
+      #     context: ./client
 
   ##### Push back image to GAR ######
   ###################################
@@ -126,15 +135,24 @@ jobs:
         with:
           credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
 
-      - name: "Build and push"
-        uses: RafikFarhad/push-to-gcr-github-action@v5-beta
-        with:
-          registry: europe-west1-docker.pkg.dev
-          project_id: ${{ vars.GCP_PROJECT }}
-          image_name: ${{ vars.DOCKER_BACK }}
-          image_tag: ${{ vars.DOCKER_BACK_VERSION }}
-          dockerfile: ./server/Dockerfile
-          context: ./server
+      - name: "Pull image from Docker Hub"
+        run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
+
+      - name: "Tag image"
+        run: docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }} europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
+
+      - name: "Push image to GAR"
+        run: docker push europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
+
+      # - name: "Build and push"
+      #   uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+      #   with:
+      #     registry: europe-west1-docker.pkg.dev
+      #     project_id: ${{ vars.GCP_PROJECT }}
+      #     image_name: ${{ vars.DOCKER_BACK }}
+      #     image_tag: ${{ vars.DOCKER_BACK_VERSION }}
+      #     dockerfile: ./server/Dockerfile
+      #     context: ./server
 
   ##### Deploiement Terraform ######
   ##################################
