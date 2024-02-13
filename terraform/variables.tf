@@ -34,6 +34,6 @@ variable "pool_name" {
 ####### Variables Service Account #######
 variable "role_iam" {
   type = list(string)
-  default = [ "roles/container.admin","roles/container.clusterAdmin","roles/container.hostServiceAgentUser"]
+  default = [ "roles/objectViewer", "roles/container.hostServiceAgentUser", "roles/container.admin","roles/container.clusterAdmin" ]
   description = "The roles to assign to the service account."
 }

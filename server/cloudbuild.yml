@@ -1,8 +1,0 @@
-steps:
-  - name: "gcr.io/cloud-builders/gke-deploy"
-    args:
-      - run
-      - --filename=./server/prod-back.yml
-      - --location=europe-west1
-      - --cluster=khagu-dev-cluster
-timeout: 660s
