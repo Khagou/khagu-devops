@@ -102,23 +102,13 @@ jobs:
         run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
 
       - name: "Tag image"
-        run: docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }} europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+        run: docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }} europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
 
       - name: "config docker"
         run: gcloud auth configure-docker "europe-west1-docker.pkg.dev"
 
       - name: "Push image to GAR"
-        run: docker push europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
-
-      # - name: "Build and push"
-      #   uses: RafikFarhad/push-to-gcr-github-action@v5-beta
-      #   with:
-      #     registry: europe-west1-docker.pkg.dev
-      #     project_id: ${{ vars.GCP_PROJECT }}
-      #     image_name: ${{ vars.DOCKER_FRONT }}
-      #     image_tag: ${{ vars.DOCKER_FRONT_VERSION }}
-      #     dockerfile: ./client/Dockerfile
-      #     context: ./client
+        run: docker push europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.GAR }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
 
   ##### Push back image to GAR ######
   ###################################
@@ -142,19 +132,18 @@ jobs:
         run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
 
       - name: "Tag image"
-        run: docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }} europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
+        run: docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }} europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
 
       - name: "config docker"
         run: gcloud auth configure-docker "europe-west1-docker.pkg.dev"
 
       - name: "Push image to GAR"
-        run: docker push europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
-
+        run: docker push europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.GAR }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
       # - name: "Build and push"
       #   uses: RafikFarhad/push-to-gcr-github-action@v5-beta
       #   with:
       #     registry: europe-west1-docker.pkg.dev
-      #     project_id: ${{ vars.GCP_PROJECT }}
+      #     project_id: ${{ secrets.GCP_PROJECT }}
       #     image_name: ${{ vars.DOCKER_BACK }}
       #     image_tag: ${{ vars.DOCKER_BACK_VERSION }}
       #     dockerfile: ./server/Dockerfile
@@ -210,7 +199,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: ${{ vars.GCP_PROJECT }}
+          project_id: ${{ secrets.GCP_PROJECT }}
           install_components: "gke-gcloud-auth-plugin"
 
       - name: Configure gcloud
@@ -226,7 +215,7 @@ jobs:
         run: |
           gcloud builds submit --region=europe-west1 --project=$PROJECT_ID --config ./client/cloudbuild.yml --gcs-log-dir="gs://$BUCKET/cloudbuild-front-prod"
         env:
-          PROJECT_ID: ${{ vars.GCP_PROJECT }}
+          PROJECT_ID: ${{ secrets.GCP_PROJECT }}
           BUCKET: ${{ vars.CLOUDBUILD_BUCKET }}
 
   ##### Deploy back to GKE ######
@@ -247,7 +236,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: ${{ vars.GCP_PROJECT }}
+          project_id: ${{ secrets.GCP_PROJECT }}
           install_components: "gke-gcloud-auth-plugin"
 
       - name: Configure gcloud
@@ -263,5 +252,5 @@ jobs:
         run: |
           gcloud builds submit --region=europe-west1 --project=$PROJECT_ID --config ./server/cloudbuild.yml --gcs-log-dir="gs://$BUCKET/cloudbuild-back-prod"
         env:
-          PROJECT_ID: ${{ vars.GCP_PROJECT }}
+          PROJECT_ID: ${{ secrets.GCP_PROJECT }}
           BUCKET: ${{ vars.CLOUDBUILD_BUCKET }}
