@@ -197,11 +197,3 @@ jobs: # Jobs de l'action
           file: ./server/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
-
-      # - name: Build Docker images and push to Docker Hub
-      #   run: |
-      #     docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      #     docker build ./client -t ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
-      #     docker push ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
-      #     docker build ./server -t ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
-      #     docker push ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
