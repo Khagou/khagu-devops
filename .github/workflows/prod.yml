@@ -104,6 +104,9 @@ jobs:
       - name: "Tag image"
         run: docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }} europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
 
+      - name: "config docker"
+        run: gcloud auth configure-docker "europe-west1-docker.pkg.dev"
+
       - name: "Push image to GAR"
         run: docker push europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
 
@@ -140,6 +143,9 @@ jobs:
 
       - name: "Tag image"
         run: docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }} europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
+
+      - name: "config docker"
+        run: gcloud auth configure-docker "europe-west1-docker.pkg.dev"
 
       - name: "Push image to GAR"
         run: docker push europe-west1-docker.pkg.dev/${{ vars.GCP_PROJECT }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
