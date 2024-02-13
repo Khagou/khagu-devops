@@ -205,10 +205,10 @@ jobs:
       - name: Configure gcloud
         run: gcloud config set compute/region europe-west1
 
-      - name: Get GKE
+      - name: Get cluster credential
         uses: google-github-actions/get-gke-credentials@v1
         with:
-          cluster_name: deployment-cluster
+          cluster_name: khagu-dev-cluster
           location: europe-west1
 
       - name: Deploy to GKE
@@ -242,10 +242,10 @@ jobs:
       - name: Configure gcloud
         run: gcloud config set compute/region europe-west1
 
-      - name: Get GKE
+      - name: Get cluster credential
         uses: google-github-actions/get-gke-credentials@v1
         with:
-          cluster_name: deployment-cluster
+          cluster_name: khagu-dev-cluster
           location: europe-west1
 
       - name: Deploy to GKE
