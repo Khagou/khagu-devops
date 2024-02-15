@@ -13,7 +13,7 @@ module "service_account" {
 module "cluster" {
   source  = "./cluster"
   cluster_name = var.cluster_name
-  gcp_region = var.gcp_region
+  gcp_zone = var.gcp_zone
   sa_email = module.service_account.sa_email
   pool_name = var.pool_name
 }
