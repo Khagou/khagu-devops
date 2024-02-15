@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: khagu-dev-front
-          image: "europe-west1-docker.pkg.dev/khagu-dev-411510/khagu-dev-images-registry/khagu-dev-front:1.0.8" # Remplacer par votre repo
+          image: "europe-west1-docker.pkg.dev/khagu-dev-411510/khagu-dev-images-registry/khagu-dev-front:1.0.9" # Remplacer par votre repo
           ports:
             - containerPort: 80
             - containerPort: 7000
