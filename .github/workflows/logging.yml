@@ -33,9 +33,6 @@ jobs:
           cluster_name: khagu-dev-cluster
           location: europe-west1-b
 
-      - name: Add cluster role binding
-        run: kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user ${{ secrets.KUBERNETES_EMAIL}}
-
       - name: Set up ECK
         run: |
           # Liste des CRDs ECK
