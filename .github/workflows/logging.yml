@@ -1,0 +1,39 @@
+name: Pipeline Logging
+
+on:
+  push:
+    branches:
+      - logging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: "Google auth"
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          install_components: "gke-gcloud-auth-plugin"
+
+      - name: Configure gcloud
+        run: gcloud config set compute/region europe-west1
+
+      - name: Get cluster credential
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: khagu-dev-cluster
+          location: europe-west1-b
+
+      - name: Deploy to GKE
+        run: |
+          gcloud auth configure-docker europe-west1-docker.pkg.dev
+          kubectl apply -f ./logging/fleet.yml
