@@ -33,9 +33,12 @@ jobs:
           cluster_name: khagu-dev-cluster
           location: europe-west1-b
 
+      - name: Add cluster role binding
+        run: kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user ${{ secrets.KUBERNETES_EMAIL}}
+
       - name: Set up ECK
         run: |
-          # Liste des CRD
+          # Liste des CRDs ECK
           crds=("agents.agent.k8s.elastic.co" "apmservers.apm.k8s.elastic.co" "beats.beat.k8s.elastic.co" "elasticmapsservers.maps.k8s.elastic.co" "elasticsearchautoscalers.autoscaling.k8s.elastic.co" "elasticsearches.elasticsearch.k8s.elastic.co" "enterprisesearches.enterprisesearch.k8s.elastic.co" "kibanas.kibana.k8s.elastic.co" "logstashes.logstash.k8s.elastic.co" "stackconfigpolicies.stackconfigpolicy.k8s.elastic.co")
 
           # Vérifiez chaque CRD
