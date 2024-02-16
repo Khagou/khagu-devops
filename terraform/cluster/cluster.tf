@@ -12,7 +12,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   cluster    = google_container_cluster.primary.name
   node_count = 2
 
- node_config {
+  node_config {
     preemptible  = true
     machine_type = "e2-micro"
 
@@ -22,6 +22,10 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
       "https://www.googleapis.com/auth/cloud-platform"
     ]
   }
+  autoscaling {
+    min_node_count = 1
+    max_node_count = 4
+  }
 }
 resource "google_container_node_pool" "secondary_preemptible_nodes" {
   name       = var.pool_name_eck
@@ -29,7 +33,7 @@ resource "google_container_node_pool" "secondary_preemptible_nodes" {
   cluster    = google_container_cluster.primary.name
   node_count = 2
 
- node_config {
+  node_config {
     preemptible  = true
     machine_type = "e2-standard-2"
 
@@ -38,5 +42,10 @@ resource "google_container_node_pool" "secondary_preemptible_nodes" {
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
+  
+  }
+  autoscaling {
+    min_node_count = 1
+    max_node_count = 4
   }
 }
