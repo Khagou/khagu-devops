@@ -33,7 +33,11 @@ jobs:
           cluster_name: khagu-dev-cluster
           location: europe-west1-b
 
+      - name: Set up ECK
+        run: |
+          kubectl create -f https://download.elastic.co/downloads/eck/2.10.0/crds.yaml
+          kubectl apply -f https://download.elastic.co/downloads/eck/2.10.0/operator.yaml
+
       - name: Deploy to GKE
         run: |
-          gcloud auth configure-docker europe-west1-docker.pkg.dev
           kubectl apply -f ./logging/fleet.yml
