@@ -31,6 +31,12 @@ variable "pool_name" {
   
 }
 
+variable "pool_name_eck" {
+  type        = string
+  default     = "khagu-dev-pool-eck" # Change me if you need
+  description = "The name of the node pool."
+}
+
 ####### Variables Service Account #######
 variable "role_iam" {
   type = list(string)

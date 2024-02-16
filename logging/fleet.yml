@@ -8,7 +8,7 @@ spec:
   kibanaRef:
     name: kibana-quickstart
   elasticsearchRefs:
-  - name: elasticsearch-quickstart
+    - name: elasticsearch-quickstart
   mode: fleet
   fleetServerEnabled: true
   policyID: eck-fleet-server
@@ -19,7 +19,7 @@ spec:
         serviceAccountName: elastic-agent
         automountServiceAccountToken: true
         securityContext:
-          runAsUser: 0 
+          runAsUser: 0
 ---
 apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
@@ -40,10 +40,10 @@ spec:
         serviceAccountName: elastic-agent
         automountServiceAccountToken: true
         securityContext:
-          runAsUser: 0 
+          runAsUser: 0
         volumes:
-        - name: agent-data
-          emptyDir: {}
+          - name: agent-data
+            emptyDir: {}
 ---
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
@@ -55,6 +55,8 @@ spec:
   count: 1
   elasticsearchRef:
     name: elasticsearch-quickstart
+  nodeSelector:
+    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
   http:
     service:
       spec:
@@ -62,11 +64,13 @@ spec:
     tls:
       selfSignedCertificate:
         subjectAltNames:
-        - ip: 1.2.3.4
-        - dns: kibana.example.com
+          - ip: 1.2.3.4
+          - dns: kibana.example.com
   config:
-    xpack.fleet.agents.elasticsearch.hosts: ["https://elasticsearch-quickstart-es-http.default.svc:9200"]
-    xpack.fleet.agents.fleet_server.hosts: ["https://fleet-server-quickstart-agent-http.default.svc:8220"]
+    xpack.fleet.agents.elasticsearch.hosts:
+      ["https://elasticsearch-quickstart-es-http.default.svc:9200"]
+    xpack.fleet.agents.fleet_server.hosts:
+      ["https://fleet-server-quickstart-agent-http.default.svc:8220"]
     xpack.fleet.packages:
       - name: system
         version: latest
@@ -83,10 +87,10 @@ spec:
           - metrics
         unenroll_timeout: 900
         package_policies:
-        - name: fleet_server-1
-          id: fleet_server-1
-          package:
-            name: fleet_server
+          - name: fleet_server-1
+            id: fleet_server-1
+            package:
+              name: fleet_server
       - name: Elastic Agent on ECK policy
         id: eck-agent
         namespace: default
@@ -107,48 +111,50 @@ metadata:
   namespace: default
 spec:
   version: 8.11.3
+  nodeSelector:
+    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
   nodeSets:
-  - name: default
-    count: 3
-    config:
-      node.store.allow_mmap: false
-    
+    - name: default
+      count: 3
+      config:
+        node.store.allow_mmap: false
+
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: elastic-agent
 rules:
-- apiGroups: [""] # "" indicates the core API group
-  resources:
-  - pods
-  - nodes
-  - namespaces
-  verbs:
-  - get
-  - watch
-  - list
-- apiGroups: ["apps"]
-  resources:
-  - deployments
-  verbs:
-  - get
-  - watch
-  - list
-- apiGroups: ["autoscaling"]
-  resources:
-  - horizontalpodautoscalers
-  verbs:
-  - get
-  - watch
-  - list
-- apiGroups: [""]
-  resources:
-  - services
-  verbs:
-  - get
-  - watch
-  - list
+  - apiGroups: [""] # "" indicates the core API group
+    resources:
+      - pods
+      - nodes
+      - namespaces
+    verbs:
+      - get
+      - watch
+      - list
+  - apiGroups: ["apps"]
+    resources:
+      - deployments
+    verbs:
+      - get
+      - watch
+      - list
+  - apiGroups: ["autoscaling"]
+    resources:
+      - horizontalpodautoscalers
+    verbs:
+      - get
+      - watch
+      - list
+  - apiGroups: [""]
+    resources:
+      - services
+    verbs:
+      - get
+      - watch
+      - list
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -161,11 +167,12 @@ kind: ClusterRoleBinding
 metadata:
   name: elastic-agent
 subjects:
-- kind: ServiceAccount
-  name: elastic-agent
-  namespace: default
+  - kind: ServiceAccount
+    name: elastic-agent
+    namespace: default
 roleRef:
   kind: ClusterRole
   name: elastic-agent
   apiGroup: rbac.authorization.k8s.io
 ---
+
