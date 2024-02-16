@@ -17,4 +17,5 @@ module "cluster" {
   # gcp_region = var.gcp_region
   sa_email = module.service_account.sa_email
   pool_name = var.pool_name
+  pool_name_eck = var.pool_name_eck
 }
