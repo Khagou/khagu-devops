@@ -3,7 +3,6 @@ resource "google_container_cluster" "primary" {
   location           = var.gcp_zone
 
   remove_default_node_pool = true
-  initial_node_count = 1
 }
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
