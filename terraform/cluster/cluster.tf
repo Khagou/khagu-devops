@@ -13,6 +13,12 @@ resource "google_container_cluster" "primary" {
   cluster_autoscaling {
     enabled = true
     resource_limits {
+      resource_type = "cpu"
+      minimum       = 1
+      maximum       = 100
+    }
+
+    resource_limits {
       resource_type = "memory"
       minimum       = 1000
       maximum       = 10000
