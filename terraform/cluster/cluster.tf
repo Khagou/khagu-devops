@@ -3,6 +3,17 @@ resource "google_container_cluster" "primary" {
   location           = var.gcp_zone
 
   remove_default_node_pool = true
+  initial_node_count = 1
+  cluster_autoscaling {
+    enabled = true
+    resource_limits {
+      resource_type = "cpu"
+      minimum       = 1
+      maximum       = 100
+    }
+  
+  }
+
 }
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
