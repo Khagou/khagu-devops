@@ -22,7 +22,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   }
   autoscaling {
     min_node_count = 1
-    max_node_count = 4
+    max_node_count = 8
   }
 }
 resource "google_container_node_pool" "secondary_preemptible_nodes" {
@@ -43,6 +43,6 @@ resource "google_container_node_pool" "secondary_preemptible_nodes" {
   }
   autoscaling {
     min_node_count = 1
-    max_node_count = 4
+    max_node_count = 8
   }
 }
