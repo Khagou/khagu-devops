@@ -4,6 +4,12 @@ resource "google_container_cluster" "primary" {
 
   remove_default_node_pool = true
   initial_node_count = 1
+
+  node_pool_auto_config {
+    network_tags {
+      tags = ["foo", "bar"]
+    }
+  }
   cluster_autoscaling {
     enabled = true
     resource_limits {
@@ -11,7 +17,6 @@ resource "google_container_cluster" "primary" {
       minimum       = 1
       maximum       = 100
     }
-  
   }
 
 }
