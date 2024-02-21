@@ -1,0 +1,56 @@
+name: Pipeline Logging
+
+on:
+  push:
+    branches:
+      - logging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: "Google auth"
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          install_components: "gke-gcloud-auth-plugin"
+
+      - name: Configure gcloud
+        run: gcloud config set compute/region europe-west1
+
+      - name: Get cluster credential
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: khagu-dev-cluster
+          location: europe-west1-b
+
+      - name: Set up ECK
+        run: |
+          # Liste des CRDs ECK
+          crds=("agents.agent.k8s.elastic.co" "apmservers.apm.k8s.elastic.co" "beats.beat.k8s.elastic.co" "elasticmapsservers.maps.k8s.elastic.co" "elasticsearchautoscalers.autoscaling.k8s.elastic.co" "elasticsearches.elasticsearch.k8s.elastic.co" "enterprisesearches.enterprisesearch.k8s.elastic.co" "kibanas.kibana.k8s.elastic.co" "logstashes.logstash.k8s.elastic.co" "stackconfigpolicies.stackconfigpolicy.k8s.elastic.co")
+
+          # Vérifiez chaque CRD
+          for crd in "${crds[@]}"
+          do
+            if ! kubectl get crd $crd > /dev/null 2>&1; then
+              # Si le CRD n'existe pas, créez les CRDs
+              kubectl create -f https://download.elastic.co/downloads/eck/2.10.0/crds.yaml
+              break
+            fi
+          done
+
+          # Appliquez l'opérateur ECK
+          kubectl apply -f https://download.elastic.co/downloads/eck/2.10.0/operator.yaml
+
+      - name: Deploy to GKE
+        run: |
+          kubectl apply -f ./logging/fleet.yml
