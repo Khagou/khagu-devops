@@ -40,4 +40,4 @@ jobs:
         run: helm repo update
 
       - name: Install prometheus
-        run: helm install prometheus prometheus-community/prometheus
+        run: helm install prometheus prometheus-community/kube-prometheus-stack
