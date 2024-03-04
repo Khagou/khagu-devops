@@ -7,6 +7,8 @@ spec:
   count: 1
   elasticsearchRef:
     name: elasticsearch
+  nodeSelector:
+    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
   http:
     service:
       spec:
@@ -69,6 +71,8 @@ spec:
       count: 3
       config:
         node.store.allow_mmap: false
+  nodeSelector:
+    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
 ---
 apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
@@ -91,6 +95,8 @@ spec:
         automountServiceAccountToken: true
         securityContext:
           runAsUser: 0
+  nodeSelector:
+    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
 ---
 apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
@@ -104,6 +110,8 @@ spec:
     name: fleet-server
   mode: fleet
   policyID: eck-agent
+  nodeSelector:
+    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
   daemonSet:
     podTemplate:
       spec:
