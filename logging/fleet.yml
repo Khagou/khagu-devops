@@ -7,6 +7,15 @@ spec:
   count: 1
   elasticsearchRef:
     name: elasticsearch
+  http:
+    service:
+      spec:
+        type: LoadBalancer # default is ClusterIP
+    tls:
+      selfSignedCertificate:
+        subjectAltNames:
+          - ip: 1.2.3.4
+          - dns: kibana.example.com
   config:
     xpack.fleet.agents.elasticsearch.hosts:
       ["https://elasticsearch-es-http.default.svc:9200"]
