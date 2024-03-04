@@ -1,7 +1,7 @@
 ####### Variables Providers #######
 variable "gcp_project" {
   type        = string
-  default     = "khagu-dev-411510" # Change me
+  default     = "khagu-devops" # Change me
   description = "The GCP project to deploy the app."
 }
 variable "gcp_zone" {

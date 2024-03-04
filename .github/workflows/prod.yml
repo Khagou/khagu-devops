@@ -96,7 +96,7 @@ jobs:
         id: "auth"
         uses: "google-github-actions/auth@v1"
         with:
-          credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
 
       - name: "Pull image from Docker Hub"
         run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
@@ -126,7 +126,7 @@ jobs:
         id: "auth"
         uses: "google-github-actions/auth@v1"
         with:
-          credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
 
       - name: "Pull image from Docker Hub"
         run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
@@ -165,21 +165,21 @@ jobs:
           cd terraform
           terraform init
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       - name: Terraform Plan
         run: |
           cd terraform
           terraform plan
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
       - name: Terraform Apply
         run: |
           cd terraform
           terraform apply -auto-approve
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.TERRAFORM_CREDENTIALS }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
   ##### Deploy front to GKE ######
   ##########################
@@ -194,7 +194,7 @@ jobs:
         id: "auth"
         uses: "google-github-actions/auth@v1"
         with:
-          credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
@@ -232,7 +232,7 @@ jobs:
         id: "auth"
         uses: "google-github-actions/auth@v1"
         with:
-          credentials_json: "${{ secrets.KUBERNETES_CREDENTIALS }}"
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1

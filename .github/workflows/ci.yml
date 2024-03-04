@@ -3,8 +3,6 @@ name: CI # Nom de l'action
 on: # Déclencheur de l'action
   push: # Déclencheur de l'action lors d'un push
     branches: [test] # Déclencheur de l'action lors d'un push sur la branche test
-  pull_request: # Déclencheur de l'action lors d'une pull request
-    branches: [test] # Déclencheur de l'action lors d'une pull request sur la branche test
 
 env: # Variables d'environnement declarées dans la vm de l'action
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }} # les secrets sont des variables d'environnement sous forme de secrets stockées dans le répertoire secrets du repo sur github
