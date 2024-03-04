@@ -20,8 +20,8 @@ resource "google_container_cluster" "primary" {
 
     resource_limits {
       resource_type = "memory"
-      minimum       = 250
-      maximum       = 500
+      minimum       = 1000
+      maximum       = 10000
     }
   }
 
@@ -43,8 +43,8 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     ]
   }
   autoscaling {
-    min_node_count = 1
-    max_node_count = 8
+    min_node_count = 2
+    max_node_count = 10
   }
 }
 resource "google_container_node_pool" "secondary_preemptible_nodes" {
@@ -64,7 +64,7 @@ resource "google_container_node_pool" "secondary_preemptible_nodes" {
   
   }
   autoscaling {
-    min_node_count = 1
-    max_node_count = 8
+    min_node_count = 2
+    max_node_count = 10
   }
 }
