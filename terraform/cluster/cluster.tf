@@ -20,8 +20,8 @@ resource "google_container_cluster" "primary" {
 
     resource_limits {
       resource_type = "memory"
-      minimum       = 1000
-      maximum       = 10000
+      minimum       = 250
+      maximum       = 500
     }
   }
 
