@@ -20,6 +20,8 @@ spec:
         automountServiceAccountToken: true
         securityContext:
           runAsUser: 0
+  nodeSelector:
+    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
 ---
 apiVersion: agent.k8s.elastic.co/v1alpha1
 kind: Agent
@@ -44,6 +46,8 @@ spec:
         volumes:
           - name: agent-data
             emptyDir: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
 ---
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
@@ -103,6 +107,8 @@ spec:
             id: system-1
             package:
               name: system
+  nodeSelector:
+    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
 ---
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
