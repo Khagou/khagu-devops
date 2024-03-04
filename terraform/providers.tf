@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "khagu-dev-terraform-state"
+    bucket = "khagu-devops"
     prefix = "terraform/state"
   }
 }
