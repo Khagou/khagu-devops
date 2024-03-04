@@ -107,8 +107,6 @@ spec:
             id: system-1
             package:
               name: system
-  nodeSelector:
-    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
 ---
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch

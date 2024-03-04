@@ -10,8 +10,6 @@ spec:
   selector:
     matchLabels:
       app: khagu-dev-back
-  nodeSelector:
-    cloud.google.com/gke-nodepool: khagu-dev-pool
   template:
     metadata:
       labels:
@@ -29,6 +27,8 @@ spec:
             limits:
               memory: "128Mi"
               cpu: "500m"
+  nodeSelector:
+    cloud.google.com/gke-nodepool: khagu-dev-pool
 ---
 apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
