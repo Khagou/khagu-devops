@@ -19,9 +19,9 @@ const MAIL_PASS = process.env.MAIL_PASS;
 app.use(bodyParser.json());
 app.use(express.static("client/build"));
 app.use(cors());
-app.use("http://34.78.183.228:7000/api/tech", techRoutes);
-app.use("http://34.78.183.228:7000/api/images", imagesRoutes);
-app.use("http://34.78.183.228:7000/api/article", articleRoutes);
+app.use("/api/tech", techRoutes);
+app.use("/api/images", imagesRoutes);
+app.use("/api/article", articleRoutes);
 
 app.post("/send_mail", cors(), async (req, res) => {
   let { nom } = req.body;

@@ -11,7 +11,7 @@ permissions:
 env:
   # Use docker.io for Docker Hub if empty
   SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
-  REACT_APP_URL_API: ${{ vars.REACT_APP_URL_API }}
+  REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API }}
 
 jobs:
   ##### Check de l'image Front ######
