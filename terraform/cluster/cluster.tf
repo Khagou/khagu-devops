@@ -15,7 +15,7 @@ resource "google_container_cluster" "primary" {
     resource_limits {
       resource_type = "cpu"
       minimum       = 1
-      maximum       = 100
+      maximum       = 10
     }
 
     resource_limits {
@@ -41,7 +41,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
-    disk_type = pd-standard
+    disk_type = "pd-standard"
     disk_size_gb = 25
   }
   autoscaling {
