@@ -41,7 +41,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
-    disk_size_gb = 10
+    disk_size_gb = 20
   }
   autoscaling {
     min_node_count = 2
