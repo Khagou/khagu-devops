@@ -41,6 +41,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
+    disk_type = pd-standard
     disk_size_gb = 20
   }
   autoscaling {
