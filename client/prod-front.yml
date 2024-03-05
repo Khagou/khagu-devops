@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: khagu-dev-front
-  namespace: default
+  namespace: application
   labels:
     app: khagu-dev
 spec:
@@ -26,7 +26,7 @@ apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
 metadata:
   name: "khagu-dev-front-hpa"
-  namespace: "default"
+  namespace: "application"
   labels:
     app: "khagu-dev-front"
 spec:
