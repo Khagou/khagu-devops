@@ -10,6 +10,10 @@ resource "google_container_cluster" "primary" {
       tags = ["foo", "bar"]
     }
   }
+  node_config {
+    disk_type = "pd-standard"
+    disk_size_gb = 25
+  }
   cluster_autoscaling {
     enabled = true
     resource_limits {
