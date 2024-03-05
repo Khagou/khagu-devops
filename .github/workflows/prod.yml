@@ -209,7 +209,7 @@ jobs:
         uses: google-github-actions/get-gke-credentials@v1
         with:
           cluster_name: khagu-dev-cluster
-          location: europe-west1-b
+          location: europe-west1
 
       - name: Deploy to GKE
         run: |
@@ -247,7 +247,7 @@ jobs:
         uses: google-github-actions/get-gke-credentials@v1
         with:
           cluster_name: khagu-dev-cluster
-          location: europe-west1-b
+          location: europe-west1
 
       - name: Deploy to GKE
         run: |
