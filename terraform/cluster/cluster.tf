@@ -12,20 +12,20 @@ resource "google_container_cluster" "primary" {
   }
   node_config {
     disk_type = "pd-standard"
-    disk_size_gb = 25
+    disk_size_gb = 100
   }
   cluster_autoscaling {
     enabled = true
     resource_limits {
       resource_type = "cpu"
       minimum       = 1
-      maximum       = 8
+      maximum       = 10
     }
 
     resource_limits {
       resource_type = "memory"
       minimum       = 1000
-      maximum       = 10000
+      maximum       = 100000
     }
   }
 
@@ -46,10 +46,10 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
       "https://www.googleapis.com/auth/cloud-platform"
     ]
     disk_type = "pd-standard"
-    disk_size_gb = 10
+    disk_size_gb = 100
   }
   autoscaling {
     min_node_count = 1
-    max_node_count = 4
+    max_node_count = 10
   }
 }
