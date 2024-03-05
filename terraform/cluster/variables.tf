@@ -1,5 +1,5 @@
-variable "gcp_zone" {
-  description = "The GCP zone to deploy the cluster."  
+variable "gcp_region" {
+  description = "The GCP region to deploy the cluster."  
 }
 
 # variable "gcp_region" {

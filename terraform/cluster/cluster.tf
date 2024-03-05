@@ -1,6 +1,6 @@
 resource "google_container_cluster" "primary" {
   name               = var.cluster_name
-  location           = var.gcp_zone
+  location           = var.gcp_region
 
   remove_default_node_pool = true
   initial_node_count = 1
@@ -29,7 +29,7 @@ resource "google_container_cluster" "primary" {
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
   name       = var.pool_name
-  location   = var.gcp_zone
+  location   = var.gcp_region
   cluster    = google_container_cluster.primary.name
 
   node_config {
@@ -42,10 +42,10 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
       "https://www.googleapis.com/auth/cloud-platform"
     ]
     disk_type = pd-standard
-    disk_size_gb = 20
+    disk_size_gb = 25
   }
   autoscaling {
     min_node_count = 2
-    max_node_count = 10
+    max_node_count = 4
   }
 }
