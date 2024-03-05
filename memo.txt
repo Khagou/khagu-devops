@@ -25,3 +25,8 @@ Ecrire un pipeline qui fera les actions suivantes pour des applications Python:
 ◦ Lancer les tests unitaires de l’application
 ◦ Builder l’image de Docker
 ◦ Pusher l’image Docker sur le docker hub
+
+
+
+fix clusterrole error
+kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user github-action@khagu-devops.iam.gserviceaccount.com

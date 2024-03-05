@@ -55,8 +55,8 @@ spec:
   count: 1
   elasticsearchRef:
     name: elasticsearch-quickstart
-  nodeSelector:
-    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
+  # nodeSelector:
+  #   cloud.google.com/gke-nodepool: khagu-dev-pool-eck
   http:
     service:
       spec:
@@ -111,8 +111,8 @@ metadata:
   namespace: default
 spec:
   version: 8.11.3
-  nodeSelector:
-    cloud.google.com/gke-nodepool: khagu-dev-pool-eck
+  # nodeSelector:
+  #   cloud.google.com/gke-nodepool: khagu-dev-pool-eck
   nodeSets:
     - name: default
       count: 3
