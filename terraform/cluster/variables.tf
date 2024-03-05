@@ -11,9 +11,7 @@ variable "pool_name" {
   description = "The name of the node pool."
 }
 
-variable "pool_name_eck" {
-  description = "The name of the node pool."
-}
+
 variable "cluster_name" {
   description = "The name of the GKE cluster."
 }
