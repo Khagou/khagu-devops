@@ -203,13 +203,13 @@ jobs:
           install_components: "gke-gcloud-auth-plugin"
 
       - name: Configure gcloud
-        run: gcloud config set compute/region europe-west1
+        run: gcloud config set compute/region europe-west2
 
       - name: Get cluster credential
         uses: google-github-actions/get-gke-credentials@v1
         with:
           cluster_name: khagu-dev-cluster
-          location: europe-west1
+          location: europe-west2
 
       - name: Deploy to GKE
         run: |
@@ -241,13 +241,13 @@ jobs:
           install_components: "gke-gcloud-auth-plugin"
 
       - name: Configure gcloud
-        run: gcloud config set compute/region europe-west1
+        run: gcloud config set compute/region europe-west2
 
       - name: Get cluster credential
         uses: google-github-actions/get-gke-credentials@v1
         with:
           cluster_name: khagu-dev-cluster
-          location: europe-west1
+          location: europe-west2
 
       - name: Deploy to GKE
         run: |
