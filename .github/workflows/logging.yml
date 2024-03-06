@@ -32,6 +32,7 @@ jobs:
         with:
           cluster_name: khagu-dev-cluster
           location: europe-west1
+
       - name: Clusterrolebinding
         run: kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user github-action@khagu-devops.iam.gserviceaccount.com
 
