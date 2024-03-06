@@ -181,6 +181,15 @@ jobs:
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
+      - name: Create namespace elastic
+        run: kubectl create namespace elastic
+
+      - name: Create namespace prometheus
+        run: kubectl create namespace prometheus
+
+      - name: Create namespace application
+        run: kubectl create namespace application
+
   ##### Deploy front to GKE ######
   ##########################
   deploy-front-to-gke:
@@ -210,6 +219,15 @@ jobs:
         with:
           cluster_name: khagu-dev-cluster
           location: europe-west1
+
+      - name: Create namespace elastic
+        run: kubectl create namespace elastic
+
+      - name: Create namespace prometheus
+        run: kubectl create namespace prometheus
+
+      - name: Create namespace application
+        run: kubectl create namespace application
 
       - name: Deploy to GKE
         run: |
