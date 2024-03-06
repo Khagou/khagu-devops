@@ -211,15 +211,6 @@ jobs:
           cluster_name: khagu-dev-cluster
           location: europe-west1
 
-      - name: Create namespace elastic
-        run: kubectl create namespace elastic
-
-      - name: Create namespace prometheus
-        run: kubectl create namespace prometheus
-
-      - name: Create namespace application
-        run: kubectl create namespace application
-
       - name: Deploy to GKE
         run: |
           gcloud auth configure-docker europe-west1-docker.pkg.dev
@@ -257,15 +248,6 @@ jobs:
         with:
           cluster_name: khagu-dev-cluster
           location: europe-west1
-
-      - name: Create namespace elastic
-        run: kubectl create namespace elastic
-
-      - name: Create namespace prometheus
-        run: kubectl create namespace prometheus
-
-      - name: Create namespace application
-        run: kubectl create namespace application
 
       - name: Deploy to GKE
         run: |
