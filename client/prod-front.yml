@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: khagu-dev-front
-  namespace: application
+  namespace: default
   labels:
     app: khagu-dev
 spec:
@@ -36,7 +36,7 @@ apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
 metadata:
   name: "khagu-dev-front-hpa"
-  namespace: "application"
+  namespace: default
   labels:
     app: "khagu-dev-front"
 spec:
@@ -58,7 +58,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: khagu-dev-front
-  namespace: "application"
+  namespace: default
 spec:
   type: LoadBalancer
   selector:
@@ -72,7 +72,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: khagu-dev-front-to-back
-  namespace: "application"
+  namespace: default
 spec:
   type: ClusterIP
   selector:

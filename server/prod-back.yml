@@ -34,7 +34,7 @@ apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
 metadata:
   name: "khagu-dev-front-hpa"
-  namespace: "application"
+  namespace: default
   labels:
     app: "khagu-dev-back"
 spec:
@@ -56,7 +56,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: back-service
-  namespace: "application"
+  namespace: default
 spec:
   selector:
     app: khagu-dev-back
