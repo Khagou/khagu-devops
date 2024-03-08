@@ -40,7 +40,7 @@ jobs:
         run: helm repo update
 
       - name: Install prometheus
-        run: helm install prometheus prometheus-community/kube-prometheus-stack --namespace prometheus
+        run: helm install prometheus prometheus-community/kube-prometheus-stack
 
       - name: Expose grafana
         run: kubectl apply -f ./monitoring/ingress.yml
