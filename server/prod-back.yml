@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: khagu-dev-back
-  namespace: application
+  namespace: default
   labels:
     app: khagu-dev
 spec:
