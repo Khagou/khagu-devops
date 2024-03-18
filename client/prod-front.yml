@@ -80,7 +80,7 @@ spec:
     - projet.khagu-dev.fr
     secretName: my-tls-secret
   rules:
-  - host: your-domain.com
+  - host: projet.khagu-dev.fr
     http:
       paths:
       - pathType: Prefix
