@@ -75,10 +75,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "gce"
 spec:
-  tls:
-  - hosts:
-    - projet.khagu-dev.fr
-    secretName: my-tls-secret
   rules:
   - host: projet.khagu-dev.fr
     http:
