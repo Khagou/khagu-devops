@@ -1,31 +1,31 @@
 resource "google_container_cluster" "primary" {
-  name               = var.cluster_name
-  location           = var.gcp_region
+  name               = var.cluster_name  # Name of the cluster
+  location           = var.gcp_region   # Region where the cluster will be created
 
-  remove_default_node_pool = true
-  initial_node_count = 1
+  remove_default_node_pool = true # Remove the default node pool
+  initial_node_count = 1 # Number of nodes in the cluster initially
 
-  node_pool_auto_config {
+  node_pool_auto_config { 
     network_tags {
-      tags = ["foo", "bar"]
+      tags = ["foo", "bar"] 
     }
   }
   node_config {
-    disk_type = "pd-standard"
-    disk_size_gb = 50
+    disk_type = "pd-standard" # Disk type for the nodes
+    disk_size_gb = 50 # Disk size for the nodes
   }
   cluster_autoscaling {
-    enabled = true
+    enabled = true # Enable cluster autoscaling
     resource_limits {
-      resource_type = "cpu"
-      minimum       = 1
-      maximum       = 8
+      resource_type = "cpu" # Resource type for autoscaling
+      minimum       = 1 # Minimum number of nodes
+      maximum       = 8 # Maximum number of nodes
     }
 
     resource_limits {
-      resource_type = "memory"
-      minimum       = 6
-      maximum       = 64
+      resource_type = "memory" # Resource type for autoscaling
+      minimum       = 6 # Minimum memory in GB
+      maximum       = 64 # Maximum memory in GB
     }
   }
 
