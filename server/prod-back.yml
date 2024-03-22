@@ -60,7 +60,7 @@ metadata:
 spec:
   selector:
     app: khagu-dev-back
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 7000
       targetPort: 7000

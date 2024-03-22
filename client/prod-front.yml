@@ -17,20 +17,10 @@ spec:
     spec:
       containers:
         - name: khagu-dev-front
-          image: "europe-west1-docker.pkg.dev/khagu-devops/khagu-dev-images-registry/khagu-dev-front:1.1.4" # Remplacer par votre repo
+          image: "europe-west1-docker.pkg.dev/khagu-devops/khagu-dev-images-registry/khagu-dev-front:1.1.5" # Remplacer par votre repo
           ports:
             - containerPort: 80
             - containerPort: 7000
-          # resources:
-          #   requests:
-          #     memory: "256Mi"
-          #     cpu: "500m"
-          #   limits:
-          #     memory: "512Mi"
-          #     cpu: "1"
-
-      # nodeSelector:
-      #   cloud.google.com/gke-nodepool: khagu-dev-pool
 ---
 apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
@@ -76,6 +66,16 @@ metadata:
     kubernetes.io/ingress.class: "gce"
 spec:
   rules:
+  - host: www.projet.khagu-dev.fr 
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: khagu-dev-front
+            port:
+              number: 80
   - host: projet.khagu-dev.fr
     http:
       paths:

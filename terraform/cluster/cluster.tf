@@ -5,6 +5,9 @@ resource "google_container_cluster" "primary" {
   remove_default_node_pool = true # Remove the default node pool
   initial_node_count = 1 # Number of nodes in the cluster initially
 
+  logging_service    = "logging.googleapis.com/kubernetes" # Enable Stackdriver Logging
+  monitoring_service = "monitoring.googleapis.com/kubernetes" # Enable Stackdriver Monitoring
+
   node_pool_auto_config { 
     network_tags {
       tags = ["foo", "bar"] 
