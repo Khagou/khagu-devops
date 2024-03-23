@@ -47,10 +47,10 @@ jobs: # Jobs de l'action
           npm test
           mv ./test-report.html ./back-jest-report.html
 
-      - name: run back server # execution du serveur backend afin de pouvoir executer l'ensemble des tests du front
-        run: |
-          cd server
-          npm run watch &
+      # - name: run back server # execution du serveur backend afin de pouvoir executer l'ensemble des tests du front
+      #   run: |
+      #     cd server
+      #     npm run watch &
 
       - name: Run front Jest tests # execution des tests Jest du frontend
         run: |
