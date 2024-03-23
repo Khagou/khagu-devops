@@ -3,6 +3,7 @@ import {
   render,
   fireEvent,
   waitForElementToBeRemoved,
+  waitFor
 } from "@testing-library/react";
 import PortfolioContent from "../src/components/Portfolio/PortfolioContent.js";
 import fetchMock from "jest-fetch-mock";
@@ -40,7 +41,7 @@ afterEach(() => {
 
 test("should open the modal when an image is clicked", async () => {
   const { findByAltText, findByTestId } = render(<PortfolioContent />);
-  const image = await findByAltText("adposeAccueil");
+  const image = await waitFor(() => findByAltText("adposeAccueil"));
   const modal = await findByTestId("portfolio");
   fireEvent.click(image);
   expect(modal).toBeInTheDocument();
@@ -48,7 +49,7 @@ test("should open the modal when an image is clicked", async () => {
 
 test("should close the modal when the close button is clicked", async () => {
   const { findByAltText, findByTestId } = render(<PortfolioContent />);
-  const image = await findByAltText("adposeAccueil");
+  const image = await waitFor(() => findByAltText("adposeAccueil"));
   fireEvent.click(image);
 
   const closeButton = await findByTestId("closeButton");
