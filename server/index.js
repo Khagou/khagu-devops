@@ -25,10 +25,11 @@ app.use('/api', createProxyMiddleware({
   target: 'http://back-service.default.svc.cluster.local:7000', 
   changeOrigin: true,
 }));
-
 app.use("/api/tech", techRoutes);
 app.use("/api/images", imagesRoutes);
 app.use("/api/article", articleRoutes);
+
+
 
 app.post("/send_mail", cors(), async (req, res) => {
   let { nom } = req.body;
