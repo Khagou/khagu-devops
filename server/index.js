@@ -21,13 +21,14 @@ app.use(bodyParser.json());
 app.use(express.static("client/build"));
 app.use(cors());
 
+app.use("/api/tech", techRoutes);
+app.use("/api/images", imagesRoutes);
+app.use("/api/article", articleRoutes);
+
 app.use('/api', createProxyMiddleware({ 
   target: 'http://back-service.default.svc.cluster.local:7000', 
   changeOrigin: true,
 }));
-app.use("/api/tech", techRoutes);
-app.use("/api/images", imagesRoutes);
-app.use("/api/article", articleRoutes);
 
 
 
