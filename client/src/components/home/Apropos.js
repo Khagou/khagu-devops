@@ -7,7 +7,7 @@ const Apropos = () => {
   useEffect(() => {
     console.log(process.env.REACT_APP_URL_API);
     axios
-      .get("api/article")
+      .get(process.env.REACT_APP_URL_API + "/article")
       .then((res) => setData(res.data));
   }, []);
   return (
