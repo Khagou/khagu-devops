@@ -6,24 +6,25 @@ import {
   waitFor
 } from "@testing-library/react";
 import PortfolioContent from "../src/components/Portfolio/PortfolioContent.js";
-import fetchMock from "jest-fetch-mock";
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import "@testing-library/jest-dom";
 
-fetchMock.enableMocks();
+// This sets the mock adapter on the default instance
+var mock = new MockAdapter(axios);
 
 beforeEach(() => {
-  fetch.resetMocks();
-  fetch.mockResponseOnce(
-    JSON.stringify([
-      {
-        _id: "63010eb139a57ed333541505",
-        name: "adposeAccueil",
-        chemin: "./images/adpose.PNG",
-        __v: 0,
-        caption: "caption",
-      },
-    ])
-  );
+  // Mock any GET request to /images
+  // arguments for reply are (status, data, headers)
+  mock.onGet(process.env.REACT_APP_URL_API + "/images").reply(200, [
+    {
+      _id: "63010eb139a57ed333541505",
+      name: "adposeAccueil",
+      chemin: "./images/adpose.PNG",
+      __v: 0,
+      caption: "caption",
+    },
+  ]);
 });
 
 beforeEach(() => {
