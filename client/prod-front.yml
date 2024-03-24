@@ -70,15 +70,12 @@ spec:
     http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: "/api"
         backend:
           service:
-            name: khagu-dev-front
+            name: back-service
             port:
-              number: 80
-  - host: projet.khagu-dev.fr
-    http:
-      paths:
+              number: 7000
       - pathType: Prefix
         path: "/"
         backend:
