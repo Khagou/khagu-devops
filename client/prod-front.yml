@@ -58,21 +58,12 @@ spec:
       port: 80
       targetPort: 80
 ---
-apiVersion: networking.gke.io/v1beta1
-kind: ManagedCertificate
-metadata:
-  name: sslcert
-spec:
-  domains:
-    - www.projet.khagu-dev.fr
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: khagu-dev-ingress
   annotations:
     kubernetes.io/ingress.class: "gce"
-    networking.gke.io/managed-certificates: sslcert
 spec:
   rules:
   - host: www.projet.khagu-dev.fr
