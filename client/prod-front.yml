@@ -61,7 +61,7 @@ spec:
 apiVersion: networking.gke.io/v1beta1
 kind: ManagedCertificate
 metadata:
-  name: https-request-certificate
+  name: sslcert
 spec:
   domains:
     - www.projet.khagu-dev.fr
@@ -72,7 +72,7 @@ metadata:
   name: khagu-dev-ingress
   annotations:
     kubernetes.io/ingress.class: "gce"
-    networking.gke.io/managed-certificates: https-request-certificate
+    networking.gke.io/managed-certificates: sslcert
 spec:
   rules:
   - host: www.projet.khagu-dev.fr
