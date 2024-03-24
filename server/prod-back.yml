@@ -43,16 +43,25 @@ spec:
           type: "Utilization"
           averageUtilization: 80
 ---
+apiVersion: cloud.google.com/v1beta1
+kind: BackendConfig
+metadata:
+  name: my-backendconfig
+spec:
+  healthCheck:
+    requestPath: /health
+    port: 7000
+    type: HTTP
+---
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    beta.cloud.google.com/backend-config: '{"ports": {"7000":"my-backendconfig"}}'
   name: back-service
-  namespace: default
 spec:
   selector:
     app: khagu-dev-back
-  type: NodePort
   ports:
-    - port: 7000
-      targetPort: 7000
----
+  - port: 7000
+    targetPort: 7000

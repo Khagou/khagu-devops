@@ -26,6 +26,10 @@ app.use("/api/tech", techRoutes);
 app.use("/api/images", imagesRoutes);
 app.use("/api/article", articleRoutes);
 
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
 // app.use('/api', createProxyMiddleware({ 
 //   target: 'http://back-service.default.svc.cluster.local:7000', 
 //   changeOrigin: true,
