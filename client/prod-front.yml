@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: khagu-dev-front
-          image: "europe-west1-docker.pkg.dev/khagu-devops/khagu-dev-images-registry/khagu-dev-front:1.1.8.1" # Remplacer par votre repo
+          image: "europe-west1-docker.pkg.dev/khagu-devops/khagu-dev-images-registry/khagu-dev-front:1.1.8.2" # Remplacer par votre repo
           ports:
             - containerPort: 80
             - containerPort: 7000
@@ -69,13 +69,6 @@ spec:
   - host: www.projet.khagu-dev.fr 
     http:
       paths:
-      - pathType: Prefix
-        path: "/api"
-        backend:
-          service:
-            name: back-service
-            port:
-              number: 7000
       - pathType: Prefix
         path: "/"
         backend:
