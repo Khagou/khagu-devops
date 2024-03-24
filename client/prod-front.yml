@@ -77,3 +77,36 @@ spec:
             port:
               number: 80
 ---
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: https-request-certificate
+spec:
+  domains:
+    - www.projet.khagu-dev.fr
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-https-request
+  annotations:
+    networking.gke.io/managed-certificates: https-request-certificate
+spec:
+  rules:
+  - host: www.projet.khagu-dev.fr
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: back-service
+            port:
+              number: 7000
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: khagu-dev-front
+            port:
+              number: 80
