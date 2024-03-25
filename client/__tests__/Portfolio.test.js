@@ -8,6 +8,8 @@ import "@testing-library/jest-dom";
 jest.mock("axios");
 
 test("should render Portfolio and fetch data", async () => {
+  console.log(process.env.REACT_APP_URL_API);
+
   // Simulate a successful response
   axios.get.mockResolvedValueOnce({
     data: [

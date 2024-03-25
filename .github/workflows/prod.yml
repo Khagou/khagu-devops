@@ -1,0 +1,258 @@
+name: Pipeline Prod
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  pull-requests: write
+
+env:
+  # Use docker.io for Docker Hub if empty
+  SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
+  REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API }}
+
+jobs:
+  ##### Check de l'image Front ######
+  ###################################
+  check-front-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Extract Docker Front metadata
+        id: meta
+        uses: docker/metadata-action@v4.4.0
+        with:
+          images: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}
+          labels: |
+            org.opencontainers.image.revision=${{ env.SHA }}
+          tags: |
+            type=edge,branch=$repo.default_branch
+            type=semver,pattern=v{{version}}
+            type=sha,prefix=,suffix=,format=short
+
+      - name: Check Front image
+        uses: docker/scout-action@v0.18.1
+        with:
+          command: cves
+          image: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+          exit-code: true
+
+  ##### Check de l'image Back ######
+  ###################################
+  check-back-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Extract Docker Back metadata
+        id: meta
+        uses: docker/metadata-action@v4.4.0
+        with:
+          images: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}
+          labels: |
+            org.opencontainers.image.revision=${{ env.SHA }}
+          tags: |
+            type=edge,branch=$repo.default_branch
+            type=semver,pattern=v{{version}}
+            type=sha,prefix=,suffix=,format=short
+
+      - name: Check Back image
+        uses: docker/scout-action@v0.18.1
+        with:
+          command: cves
+          image: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
+          exit-code: true
+
+  ##### Push front image to GAR ######
+  ####################################
+  push-front-image-to-GAR:
+    needs: [check-front-image]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Google auth"
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
+
+      - name: "Pull image from Docker Hub"
+        run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+
+      - name: "Tag image"
+        run: docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }} europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.GAR }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+
+      - name: "config docker"
+        run: gcloud auth configure-docker "europe-west1-docker.pkg.dev"
+
+      - name: "Push image to GAR"
+        run: docker push europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.GAR }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+
+  ##### Push back image to GAR ######
+  ###################################
+  push-back-image-to-GAR:
+    needs: [check-back-image]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Google auth"
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
+
+      - name: "Pull image from Docker Hub"
+        run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
+
+      - name: "Tag image"
+        run: docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }} europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.GAR }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
+
+      - name: "config docker"
+        run: gcloud auth configure-docker "europe-west1-docker.pkg.dev"
+
+      - name: "Push image to GAR"
+        run: docker push europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.GAR }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
+      # - name: "Build and push"
+      #   uses: RafikFarhad/push-to-gcr-github-action@v5-beta
+      #   with:
+      #     registry: europe-west1-docker.pkg.dev
+      #     project_id: ${{ secrets.GCP_PROJECT }}
+      #     image_name: ${{ vars.DOCKER_BACK }}
+      #     image_tag: ${{ vars.DOCKER_BACK_VERSION }}
+      #     dockerfile: ./server/Dockerfile
+      #     context: ./server
+
+  ##### Deploiement Terraform ######
+  ##################################
+  deploy-terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        run: |
+          cd terraform
+          terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+      - name: Terraform Plan
+        run: |
+          cd terraform
+          terraform plan
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+      - name: Terraform Apply
+        run: |
+          cd terraform
+          terraform apply -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+  ##### Deploy front to GKE ######
+  ################################
+  deploy-front-to-gke:
+    needs: [push-front-image-to-GAR, deploy-terraform]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: "Google auth"
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          install_components: "gke-gcloud-auth-plugin"
+
+      - name: Configure gcloud
+        run: gcloud config set compute/region europe-west2
+
+      - name: Get cluster credential
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: khagu-dev-cluster
+          location: europe-west2
+
+      - name: Deploy to GKE
+        run: |
+          gcloud auth configure-docker europe-west1-docker.pkg.dev
+          kubectl apply -f ./client/prod-front.yml
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT }}
+          BUCKET: ${{ vars.CLOUDBUILD_BUCKET }}
+
+  ##### Deploy back to GKE ######
+  ###############################
+  deploy-back-to-gke:
+    needs: [push-back-image-to-GAR, deploy-terraform]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: "Google auth"
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}
+          install_components: "gke-gcloud-auth-plugin"
+
+      - name: Configure gcloud
+        run: gcloud config set compute/region europe-west2
+
+      - name: Get cluster credential
+        uses: google-github-actions/get-gke-credentials@v1
+        with:
+          cluster_name: khagu-dev-cluster
+          location: europe-west2
+
+      - name: Deploy to GKE
+        run: |
+          gcloud auth configure-docker europe-west1-docker.pkg.dev
+          kubectl apply -f ./server/prod-back.yml
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT }}
+          BUCKET: ${{ vars.CLOUDBUILD_BUCKET }}

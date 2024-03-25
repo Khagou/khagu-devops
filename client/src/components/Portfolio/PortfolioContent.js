@@ -7,7 +7,7 @@ const PortfolioContent = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:7000/api/images")
+      .get(process.env.REACT_APP_URL_API + "/images")
       .then((res) => setData(res.data));
   }, []);
 

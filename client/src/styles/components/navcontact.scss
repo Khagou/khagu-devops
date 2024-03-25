@@ -33,7 +33,7 @@ div.topContact {
                     transform: translateY(0px);
                 }
                 input#checkbox_hamburger:checked ~ ul {
-                    height: calc(38px * $nbr_li);
+                    height: calc(38px * #{$nbr_li});
                 }
                 input#checkbox_hamburger:not(:checked) ~ ul {
                     height: 0;

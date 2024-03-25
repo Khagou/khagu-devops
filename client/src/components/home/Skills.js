@@ -23,7 +23,7 @@ const Skills = () => {
   // Le useEffect ce joue lorsque le composant est monté
   useEffect(() => {
     axios
-      .get("http://localhost:7000/api/tech")
+      .get(process.env.REACT_APP_URL_API + "/tech") // url de l'api
       .then((res) => setData(res.data))
       .catch((error) => console.error(error));
   }, []);

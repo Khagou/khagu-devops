@@ -25,7 +25,12 @@ module.exports = {
     },
   },
   plugins: ["react"],
-  ignorePatterns: ["**/build/**", ".eslintrc.js"],
+  ignorePatterns: [
+    "**/build/**",
+    ".eslintrc.js",
+    "node_modules/**/*",
+    "node_modules/",
+  ],
   rules: {
     "linebreak-style": [
       "error",
@@ -39,5 +44,4 @@ module.exports = {
     "react/prop-types": 0,
     "comma-dangle": 0,
   },
-  "eslint.workingdirectories": ["./back", "./front"],
 };

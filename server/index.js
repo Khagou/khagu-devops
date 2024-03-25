@@ -1,4 +1,5 @@
 const express = require("express");
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 require("dotenv").config({ path: "./config/.env" });
 const app = express();
@@ -16,12 +17,28 @@ const MAIL_PORT = process.env.MAIL_PORT;
 const MAIL_USER = process.env.MAIL_USER;
 const MAIL_PASS = process.env.MAIL_PASS;
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("client/build"));
-app.use(cors());
+
+
 app.use("/api/tech", techRoutes);
 app.use("/api/images", imagesRoutes);
 app.use("/api/article", articleRoutes);
+
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
+
+// app.use('/api', createProxyMiddleware({ 
+//   target: 'http://back-service.default.svc.cluster.local:7000', 
+//   changeOrigin: true,
+//   onProxyRes: function (proxyRes, req, res) {
+//     proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+//   }
+// }));
+
+
 
 app.post("/send_mail", cors(), async (req, res) => {
   let { nom } = req.body;

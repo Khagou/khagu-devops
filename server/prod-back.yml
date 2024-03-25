@@ -17,18 +17,51 @@ spec:
     spec:
       containers:
         - name: khagu-dev-back
-          image: "khagu/khagu-dev-back:1" # Remplacer par votre repo
+          image: "europe-west1-docker.pkg.dev/khagu-devops/khagu-dev-images-registry/khagu-dev-back:1.0.9.8" # Remplacer par votre repo
           ports:
             - containerPort: 7000
+---
+apiVersion: "autoscaling/v2"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "khagu-dev-front-hpa"
+  namespace: default
+  labels:
+    app: "khagu-dev-back"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "khagu-dev-back"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: "Resource"
+      resource:
+        name: "cpu"
+        target:
+          type: "Utilization"
+          averageUtilization: 80
+---
+apiVersion: cloud.google.com/v1beta1
+kind: BackendConfig
+metadata:
+  name: my-backendconfig
+spec:
+  healthCheck:
+    requestPath: /health
+    port: 7000
+    type: HTTP
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    beta.cloud.google.com/backend-config: '{"ports": {"7000":"my-backendconfig"}}'
   name: back-service
 spec:
   selector:
     app: khagu-dev-back
-  type: ClusterIP
   ports:
   - port: 7000
     targetPort: 7000

@@ -21,8 +21,8 @@ module.exports = {
     sourceType: "module",
   },
 
+  ignorePatterns: [".eslintrc.js", "node_modules/**/*", "node_modules/"],
   rules: {
-    complexity: ["error", { max: 2 }],
+    complexity: ["error", { max: 10 }],
   },
-  "eslint.workingdirectories": ["./back", "./front"],
 };

@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "./config/.env" }); // Ajoutez cette ligne en haut de votre fichier de test
+require("dotenv").config({ path: "./config/.env" });
 
 const mongoose = require("mongoose");
 

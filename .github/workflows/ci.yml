@@ -1,0 +1,197 @@
+name: CI # Nom de l'action
+
+on: # Déclencheur de l'action
+  push: # Déclencheur de l'action lors d'un push
+    branches: [test] # Déclencheur de l'action lors d'un push sur la branche test
+
+env: # Variables d'environnement declarées dans la vm de l'action
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }} # les secrets sont des variables d'environnement sous forme de secrets stockées dans le répertoire secrets du repo sur github
+  DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
+  REACT_APP_URL_API: ${{ vars.REACT_APP_LOCAL_URL_API }} # les vars sont des variables d'environnement stockées dans le répertoire vars du repo sur github
+
+jobs: # Jobs de l'action
+  Jest-tests: # Job de l'action pour les tests Jest
+    runs-on: ubuntu-latest # Système d'exploitation de la vm
+
+    steps: # Etapes du job
+      - name: Checkout code # Prendre le code du repot en contexte
+        uses: actions/checkout@v2 # use permet d'utiliser une action déjà existante (ici checkout@v2)
+
+      - name: Use Node.js # Installation de Node.js
+        uses: actions/setup-node@v2
+        with: # with permet de passer des paramètres à l'action
+          node-version: 20
+
+      - name: Install front dependencies # Installation des dépendances front
+        run: | # run permet d'exécuter des commandes dans la vm
+          cd client
+          npm ci
+
+      - name: Install back dependencies # Installation des dépendances back
+        run: |
+          cd server
+          npm ci
+
+      - name: Create rapports directory if not exists # Creation du dossier rapports pour les tests front s'il n'existe pas
+        run: mkdir -p rapports
+        working-directory: server # working-directory permet de changer le répertoire de travail
+
+      - name: Create rapports directory if not exists # Creation du dossier rapports pour les tests back s'il n'existe pas
+        run: mkdir -p rapports
+        working-directory: client
+
+      - name: Run back Jest tests # execution des tests Jest du backend
+        run: |
+          cd server
+          npm test
+          mv ./test-report.html ./back-jest-report.html
+
+      # - name: run back server # execution du serveur backend afin de pouvoir executer l'ensemble des tests du front
+      #   run: |
+      #     cd server
+      #     npm run watch &
+
+      - name: Run front Jest tests # execution des tests Jest du frontend
+        run: |
+          cd client
+          npm test
+          mv ./test-report.html ./front-jest-report.html
+
+      - name: Upload reports # Upload des rapports de tests (les tests tournant sur une vm, les rapports sont uploadés pour consultation car ils ne sont pas accessibles directement sur la vm)
+        uses: actions/upload-artifact@v3
+        with:
+          name: jest reports
+          path: | # path permet de spécifier le chemin des fichiers à uploader
+            ./client/front-jest-report.html
+            ./server/back-jest-report.html
+
+  Eslint-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Install front dependencies
+        run: |
+          npm ci
+        working-directory: client
+
+      - name: Install back dependencies
+        run: |
+          npm ci
+        working-directory: server
+
+      - name: Where am i
+        run: |
+          pwd
+          ls
+
+      - name: Where am i server
+        run: |
+          pwd
+          ls -la
+        working-directory: server
+
+      - name: Where am i client
+        run: |
+          pwd
+          ls -la
+        working-directory: client
+
+      - name: Create eslint directory if not exists
+        run: mkdir -p eslint
+        working-directory: server
+
+      - name: Create eslint directory if not exists
+        run: mkdir -p eslint
+        working-directory: client
+
+      - name: Run front Eslint test
+        run: |
+          npm run lint || true
+        working-directory: client
+
+      - name: Run back Eslint test
+        run: |
+          npm run lint || true
+        working-directory: server
+
+      - name: Eslint reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: eslint reports
+          path: |
+            client/eslint-report.html
+            server/eslint-report.html
+
+  build-and-push:
+    needs: [Jest-tests, Eslint-test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Install front dependencies
+        run: |
+          cd client
+          npm install
+
+      - name: Create .env files
+        run: |
+          echo "DB_USER_PASS=${{ secrets.DB_USER_PASS }}" > ./server/config/.env
+          cat ./server/config/.env
+          echo "REACT_APP_URL_API=${{ secrets.REACT_APP_URL_API }}" > ./client/.env
+          cat ./client/.env
+
+      - name: Build front
+        if: ${{ success() }}
+        env:
+          REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API }}
+        run: |
+          cd client
+          npm run build
+
+      - name: Build and push front
+        uses: docker/build-push-action@v2
+        env:
+          REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API }}
+        with:
+          context: ./client/
+          file: ./client/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+
+      - name: Build and push back
+        uses: docker/build-push-action@v2
+        env:
+          DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
+        with:
+          context: ./server/
+          file: ./server/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
