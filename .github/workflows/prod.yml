@@ -215,9 +215,7 @@ jobs:
         run: |
           gcloud auth configure-docker europe-west1-docker.pkg.dev
           kubectl apply -f ./client/prod-front.yml
-        env:
-          PROJECT_ID: ${{ secrets.GCP_PROJECT }}
-          BUCKET: ${{ vars.CLOUDBUILD_BUCKET }}
+
 
   ##### Deploy back to GKE ######
   ###############################
@@ -253,6 +251,3 @@ jobs:
         run: |
           gcloud auth configure-docker europe-west1-docker.pkg.dev
           kubectl apply -f ./server/prod-back.yml
-        env:
-          PROJECT_ID: ${{ secrets.GCP_PROJECT }}
-          BUCKET: ${{ vars.CLOUDBUILD_BUCKET }}
