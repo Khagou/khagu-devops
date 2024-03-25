@@ -20,7 +20,13 @@ spec: # Spécification
           image: "europe-west1-docker.pkg.dev/khagu-devops/khagu-dev-images-registry/khagu-dev-back:1.0.9.8" # Image du conteneur
           ports: # Ports du conteneur
             - containerPort: 7000 # Port du conteneur 
-          resources: 
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
 ---
 apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
@@ -36,6 +42,7 @@ spec:
     apiVersion: "apps/v1"
   minReplicas: 1
   maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
   metrics:
     - type: "Resource"
       resource:
