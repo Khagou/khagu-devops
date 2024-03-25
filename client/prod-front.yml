@@ -21,6 +21,7 @@ spec:
           ports:
             - containerPort: 80
             - containerPort: 7000
+          resources:
 ---
 apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
