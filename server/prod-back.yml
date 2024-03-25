@@ -42,7 +42,6 @@ spec:
     apiVersion: "apps/v1"
   minReplicas: 1
   maxReplicas: 5
-  targetCPUUtilizationPercentage: 80
   metrics:
     - type: "Resource"
       resource:
