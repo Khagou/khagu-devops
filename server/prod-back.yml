@@ -1,30 +1,37 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: khagu-dev-back
-  namespace: default
-  labels:
-    app: khagu-dev
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: khagu-dev-back
-  template:
-    metadata:
-      labels:
-        app: khagu-dev-back
-    spec:
-      containers:
-        - name: khagu-dev-back
-          image: "europe-west1-docker.pkg.dev/khagu-devops/khagu-dev-images-registry/khagu-dev-back:1.0.9.8" # Remplacer par votre repo
-          ports:
-            - containerPort: 7000
+apiVersion: apps/v1 # Version de l'API
+kind: Deployment # Type de ressource
+metadata: # Métadonnées
+  name: khagu-dev-back # Nom de la ressource
+  namespace: default # Espace de nom
+  labels: # Labels
+    app: khagu-dev # Nom de l'application
+spec: # Spécification
+  replicas: 1 # Nombre de réplicas
+  selector: # Sélecteur
+    matchLabels: # Labels de correspondance 
+      app: khagu-dev-back # Nom de l'application du pod
+  template: # Modèle de déploiement des pods
+    metadata: # Métadonnées du modèle
+      labels: # Labels de correspondance
+        app: khagu-dev-back # Nom de l'application du pod
+    spec: # Spécification du pod
+      containers: # Conteneurs du pod
+        - name: khagu-dev-back # Nom du conteneu
+          image: "europe-west1-docker.pkg.dev/khagu-devops/khagu-dev-images-registry/khagu-dev-back:1.0.9.8" # Image du conteneur
+          ports: # Ports du conteneur
+            - containerPort: 7000 # Port du conteneur 
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
 ---
 apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
 metadata:
-  name: "khagu-dev-front-hpa"
+  name: "khagu-dev-back-hpa"
   namespace: default
   labels:
     app: "khagu-dev-back"
