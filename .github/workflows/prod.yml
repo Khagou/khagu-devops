@@ -1,9 +1,12 @@
-# name: Pipeline Prod
+name: Pipeline Prod
 
-# on: # Triggers the workflow
-#   # pull_request: # This workflow will run only for pull requests
-#   #   branches: # This workflow will run only for the main branch
-#   #     # - main
+on: # Triggers the workflow
+  # pull_request: # This workflow will run only for pull requests
+  #   branches: # This workflow will run only for the main branch
+  #     - blabla
+  push:
+    branches:
+      - noexist
 
 # permissions:
 #   pull-requests: write
