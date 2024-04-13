@@ -110,6 +110,6 @@ jobs:
           passphrase: ${{ secrets.RASPBERRY_PI_SSH_PASSPHRASE }}
           script: |
             cd Documents/
-            docker-compose up -d
+            docker compose up -d
 
       
