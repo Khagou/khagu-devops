@@ -104,9 +104,10 @@ jobs:
       - name: Deploy to Raspberry Pi
         run: |
             echo ${{ secrets.RASPBERRY_PI_SSH_KEY }} >> $HOME/.ssh/id_ed25519
-            ssh ${{ secrets.RASPBERRY_PI_USERNAME }}@${{ secrets.RASPBERRY_PI_HOST }} -i $HOME/.ssh/id_ed25519
+            ssh ${{ secrets.RASPBERRY_PI_USERNAME }}@${{ secrets.RASPBERRY_PI_HOST }} -i $HOME/.ssh/id_ed25519 << EOF
             sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
             sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
             docker-compose -f /Documents/docker-compose.yml up -d
+            EOF
 
       
