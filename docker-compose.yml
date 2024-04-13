@@ -1,4 +1,3 @@
-version: '3'
 services:
   frontend:
     image: khagu/khagu-dev-front:1.3
