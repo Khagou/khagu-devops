@@ -6,7 +6,7 @@ on: # Triggers the workflow
   #     - blabla
   push:
     branches:
-      - noexist
+      - logging
 
 # permissions:
 #   pull-requests: write
