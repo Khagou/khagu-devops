@@ -1,10 +1,10 @@
 version: '3'
 services:
   frontend:
-    image: khagu/khagu-dev-front:1.2
+    image: khagu/khagu-dev-front:1.3
     ports:
       - 80:80
   backend:  
-    image: khagu/khagu-dev-back:1.1
+    image: khagu/khagu-dev-back:1.2
     ports:
       - 7000:7000
