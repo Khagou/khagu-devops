@@ -1,4 +1,4 @@
-FROM node:latest-arm
+FROM node:latest
 
 RUN apt-get update -y
 
