@@ -102,15 +102,10 @@ jobs:
           target: "./Documents/docker-compose.yml"
   
       - name: Deploy to Raspberry Pi
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.RASPBERRY_PI_HOST }}
-          username: ${{ secrets.RASPBERRY_PI_USERNAME }}
-          key: ${{ secrets.RASPBERRY_PI_SSH_KEY }}
-          passphrase: ${{ secrets.RASPBERRY_PI_SSH_PASSPHRASE }}
-          script: |
-            sudo docker pull --platform linux/arm64 ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
-            sudo docker pull --platform linux/arm64 ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
+        run: |
+            ssh ${{ secrets.RASPBERRY_PI_USERNAME }}@${{ secrets.RASPBERRY_PI_HOST }}
+            sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
+            sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
             docker-compose -f /Documents/docker-compose.yml up -d
 
       
