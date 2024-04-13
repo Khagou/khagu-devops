@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: khagu/khagu-dev-front:1.6
+    image: khagu/khagu-dev-front:1.7
     ports:
       - 80:80
   backend:  
