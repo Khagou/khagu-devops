@@ -99,7 +99,7 @@ jobs:
           key: ${{ secrets.RASPBERRY_PI_SSH_KEY }}
           passphrase: ${{ secrets.RASPBERRY_PI_SSH_PASSPHRASE }}
           source: "./docker-compose.yml"
-          target: "/Documents/docker-compose.yml"
+          target: "./Documents/docker-compose.yml"
   
       - name: Deploy to Raspberry Pi
         uses: appleboy/ssh-action@master
