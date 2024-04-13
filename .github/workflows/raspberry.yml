@@ -110,6 +110,8 @@ jobs:
           passphrase: ${{ secrets.RASPBERRY_PI_SSH_PASSPHRASE }}
           script: |
             cd Documents/
+            sudo docker-compose run --rm frontend certbot --nginx -d raspberry.khagu-dev.fr -d www.raspberry.khagu-dev.fr
+            sudo docker-compose run --rm frontend certbot renew --dry-run
             sudo docker compose up -d
 
       

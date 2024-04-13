@@ -5,8 +5,7 @@ on: # Triggers the workflow
   #   branches: # This workflow will run only for the main branch
   #     - blabla
   push:
-    branches:
-      - logging
+    branches: [logging]
 
 # permissions:
 #   pull-requests: write
