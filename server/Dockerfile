@@ -1,6 +1,6 @@
-FROM node:latest 
+FROM node:latest-arm
 
-RUN apt-get update && apt-get install -y
+RUN apt-get update -y
 
 COPY . .
 

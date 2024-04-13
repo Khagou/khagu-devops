@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:latest-arm
 
 RUN apt-get update -y
 
