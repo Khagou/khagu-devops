@@ -9,6 +9,7 @@ env: # Variables d'environnement declarées dans la vm de l'action
   DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
   REACT_APP_URL_API: ${{ vars.REACT_APP_LOCAL_URL_API }} # les vars sont des variables d'environnement stockées dans le répertoire vars du repo sur github
+  TARGET_PLATFORM: linux/amd64, linux/arm64
 
 jobs: # Jobs de l'action
   Jest-tests: # Job de l'action pour les tests Jest
@@ -113,6 +114,7 @@ jobs: # Jobs de l'action
         with:
           context: ./client/
           file: ./client/Dockerfile
+          platforms: ${{ env.TARGET_PLATFORM }}
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
 
@@ -123,5 +125,6 @@ jobs: # Jobs de l'action
         with:
           context: ./server/
           file: ./server/Dockerfile
+          platforms: ${{ env.TARGET_PLATFORM }}
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
