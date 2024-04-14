@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: khagu/khagu-dev-front:1.8.2
+    image: khagu/khagu-dev-front:1.9
     ports:
       - 80:80
       - 443:443
