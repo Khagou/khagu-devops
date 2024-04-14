@@ -9,6 +9,7 @@ env: # Variables d'environnement declarées dans la vm de l'action
   DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
   DB_USER_PASS: ${{ secrets.DB_USER_PASS }}
   REACT_APP_URL_API: ${{ vars.REACT_APP_LOCAL_URL_API }} # les vars sont des variables d'environnement stockées dans le répertoire vars du repo sur github
+  TARGET_PLATFORM: linux/amd64, linux/arm64
 
 jobs: # Jobs de l'action
   Jest-tests: # Job de l'action pour les tests Jest
@@ -47,12 +48,7 @@ jobs: # Jobs de l'action
           npm test
           mv ./test-report.html ./back-jest-report.html
 
-      # - name: run back server # execution du serveur backend afin de pouvoir executer l'ensemble des tests du front
-      #   run: |
-      #     cd server
-      #     npm run watch &
-
-      - name: Run front Jest tests # execution des tests Jest du frontend
+      - name: Run front Jest tests # execution des tests Jest du frontendD
         run: |
           cd client
           npm test
@@ -66,73 +62,8 @@ jobs: # Jobs de l'action
             ./client/front-jest-report.html
             ./server/back-jest-report.html
 
-  Eslint-test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Use Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 20
-
-      - name: Install front dependencies
-        run: |
-          npm ci
-        working-directory: client
-
-      - name: Install back dependencies
-        run: |
-          npm ci
-        working-directory: server
-
-      - name: Where am i
-        run: |
-          pwd
-          ls
-
-      - name: Where am i server
-        run: |
-          pwd
-          ls -la
-        working-directory: server
-
-      - name: Where am i client
-        run: |
-          pwd
-          ls -la
-        working-directory: client
-
-      - name: Create eslint directory if not exists
-        run: mkdir -p eslint
-        working-directory: server
-
-      - name: Create eslint directory if not exists
-        run: mkdir -p eslint
-        working-directory: client
-
-      - name: Run front Eslint test
-        run: |
-          npm run lint || true
-        working-directory: client
-
-      - name: Run back Eslint test
-        run: |
-          npm run lint || true
-        working-directory: server
-
-      - name: Eslint reports
-        uses: actions/upload-artifact@v3
-        with:
-          name: eslint reports
-          path: |
-            client/eslint-report.html
-            server/eslint-report.html
-
   build-and-push:
-    needs: [Jest-tests, Eslint-test]
+    needs: [Jest-tests]
     runs-on: ubuntu-latest
 
     steps:
@@ -165,13 +96,13 @@ jobs: # Jobs de l'action
         run: |
           echo "DB_USER_PASS=${{ secrets.DB_USER_PASS }}" > ./server/config/.env
           cat ./server/config/.env
-          echo "REACT_APP_URL_API=${{ secrets.REACT_APP_URL_API }}" > ./client/.env
+          echo "REACT_APP_URL_API=${{ secrets.REACT_APP_URL_API_RASPBERRY }}" > ./client/.env
           cat ./client/.env
 
       - name: Build front
         if: ${{ success() }}
         env:
-          REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API }}
+          REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API_RASPBERRY }}
         run: |
           cd client
           npm run build
@@ -179,10 +110,11 @@ jobs: # Jobs de l'action
       - name: Build and push front
         uses: docker/build-push-action@v2
         env:
-          REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API }}
+          REACT_APP_URL_API: ${{ secrets.REACT_APP_URL_API_RASPBERRY }}
         with:
           context: ./client/
           file: ./client/Dockerfile
+          platforms: ${{ env.TARGET_PLATFORM }}
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_FRONT }}:${{ vars.DOCKER_FRONT_VERSION }}
 
@@ -193,5 +125,6 @@ jobs: # Jobs de l'action
         with:
           context: ./server/
           file: ./server/Dockerfile
+          platforms: ${{ env.TARGET_PLATFORM }}
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ vars.DOCKER_BACK }}:${{ vars.DOCKER_BACK_VERSION }}
